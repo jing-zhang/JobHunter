@@ -24,11 +24,11 @@
     "id": "M3",
     "task": "Layout & Navigation",
     "subtasks": [
-      { "id": "M3-1", "task": "Implement Sidebar with Lucide icons", "status": "todo" },
-      { "id": "M3-2", "task": "Implement App Header", "status": "todo" },
-      { "id": "M3-3", "task": "Setup React-Router routes", "status": "todo" }
+      { "id": "M3-1", "task": "Implement Sidebar with Lucide icons", "status": "done" },
+      { "id": "M3-2", "task": "Implement App Header", "status": "done" },
+      { "id": "M3-3", "task": "Setup React-Router routes", "status": "done" }
     ],
-    "status": "todo"
+    "status": "done"
   },
   {
     "id": "M4",
