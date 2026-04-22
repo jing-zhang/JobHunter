@@ -1,0 +1,82 @@
+[
+  {
+    "id": "M1",
+    "task": "Project Scaffold",
+    "subtasks": [
+      { "id": "M1-1", "task": "Initialize Vite React-TS project", "status": "done" },
+      { "id": "M1-2", "task": "Configure TypeScript aliases (@/)", "status": "done" },
+      { "id": "M1-3", "task": "Setup ESLint & Prettier", "status": "done" },
+      { "id": "M1-4", "task": "Install core dependencies (react-router, react-query, lucide-react)", "status": "done" }
+    ],
+    "status": "done"
+  },
+  {
+    "id": "M2",
+    "task": "Design System",
+    "subtasks": [
+      { "id": "M2-1", "task": "Create variables.css with color tokens", "status": "todo" },
+      { "id": "M2-2", "task": "Implement global.css with glassmorphism styles", "status": "todo" },
+      { "id": "M2-3", "task": "Setup ThemeProvider for dark mode", "status": "todo" }
+    ],
+    "status": "todo"
+  },
+  {
+    "id": "M3",
+    "task": "Layout & Navigation",
+    "subtasks": [
+      { "id": "M3-1", "task": "Implement Sidebar with Lucide icons", "status": "todo" },
+      { "id": "M3-2", "task": "Implement App Header", "status": "todo" },
+      { "id": "M3-3", "task": "Setup React-Router routes", "status": "todo" }
+    ],
+    "status": "todo"
+  },
+  {
+    "id": "M4",
+    "task": "Mock API & Data Fetching",
+    "subtasks": [
+      { "id": "M4-1", "task": "Setup json-server and db.json", "status": "todo" },
+      { "id": "M4-2", "task": "Configure React-Query client", "status": "todo" },
+      { "id": "M4-3", "task": "Create base API services", "status": "todo" }
+    ],
+    "status": "todo"
+  },
+  {
+    "id": "M5",
+    "task": "Dashboard Implementation",
+    "subtasks": [
+      { "id": "M5-1", "task": "Create StatCard component", "status": "todo" },
+      { "id": "M5-2", "task": "Create CircularProgress (SVG) component", "status": "todo" },
+      { "id": "M5-3", "task": "Implement QuickAdd FAB & Modal", "status": "todo" }
+    ],
+    "status": "todo"
+  },
+  {
+    "id": "M6",
+    "task": "Applications Page",
+    "subtasks": [
+      { "id": "M6-1", "task": "Implement DataTable component", "status": "todo" },
+      { "id": "M6-2", "task": "Create application CRUD hooks", "status": "todo" },
+      { "id": "M6-3", "task": "Build Application Detail view", "status": "todo" }
+    ],
+    "status": "todo"
+  },
+  {
+    "id": "M7",
+    "task": "Interviews & Offers",
+    "subtasks": [
+      { "id": "M7-1", "task": "Implement Interview List/Table", "status": "todo" },
+      { "id": "M7-2", "task": "Implement Offer Comparison table", "status": "todo" }
+    ],
+    "status": "todo"
+  },
+  {
+    "id": "M8",
+    "task": "Testing & CI",
+    "subtasks": [
+      { "id": "M8-1", "task": "Setup Vitest environment", "status": "todo" },
+      { "id": "M8-2", "task": "Write unit tests for utils & hooks", "status": "todo" },
+      { "id": "M8-3", "task": "Configure GitHub Actions pipeline", "status": "todo" }
+    ],
+    "status": "todo"
+  }
+]
