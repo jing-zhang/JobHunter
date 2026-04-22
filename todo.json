@@ -45,39 +45,46 @@
     "id": "M5",
     "task": "Dashboard Implementation",
     "subtasks": [
-      { "id": "M5-1", "task": "Create StatCard component", "status": "todo" },
-      { "id": "M5-2", "task": "Create CircularProgress (SVG) component", "status": "todo" },
-      { "id": "M5-3", "task": "Implement QuickAdd FAB & Modal", "status": "todo" }
+      { "id": "M5-1", "task": "Create StatCard component", "status": "done" },
+      { "id": "M5-2", "task": "Create CircularProgress (SVG) component", "status": "done" },
+      { "id": "M5-3", "task": "Implement QuickAdd FAB & Modal", "status": "done" },
+      { "id": "M5-4", "task": "Create unit tests for UI components", "status": "done" }
     ],
-    "status": "todo"
+    "status": "done"
   },
   {
     "id": "M6",
     "task": "Applications Page",
     "subtasks": [
-      { "id": "M6-1", "task": "Implement DataTable component", "status": "todo" },
-      { "id": "M6-2", "task": "Create application CRUD hooks", "status": "todo" },
-      { "id": "M6-3", "task": "Build Application Detail view", "status": "todo" }
+      { "id": "M6-1", "task": "Implement DataTable component", "status": "done" },
+      { "id": "M6-2", "task": "Create application CRUD hooks", "status": "done" },
+      { "id": "M6-3", "task": "Build Application Detail view", "status": "done" },
+      { "id": "M6-4", "task": "Create unit tests for UI components", "status": "done" }
     ],
-    "status": "todo"
+    "status": "done"
   },
   {
     "id": "M7",
     "task": "Interviews & Offers",
     "subtasks": [
-      { "id": "M7-1", "task": "Implement Interview List/Table", "status": "todo" },
-      { "id": "M7-2", "task": "Implement Offer Comparison table", "status": "todo" }
+      { "id": "M7-1", "task": "Implement Interview List/Table", "status": "done" },
+      { "id": "M7-2", "task": "Implement Offer Comparison table", "status": "done" },
+      { "id": "M7-3", "task": "Create unit tests for UI components", "status": "done" }
     ],
-    "status": "todo"
+    "status": "done"
   },
   {
     "id": "M8",
     "task": "Testing & CI",
     "subtasks": [
-      { "id": "M8-1", "task": "Setup Vitest environment", "status": "todo" },
-      { "id": "M8-2", "task": "Write unit tests for utils & hooks", "status": "todo" },
-      { "id": "M8-3", "task": "Configure GitHub Actions pipeline", "status": "todo" }
+      { "id": "M8-1", "task": "Setup Vitest environment", "status": "done" },
+      { "id": "M8-2", "task": "Write unit tests for utils & hooks", "status": "done" },
+      { "id": "M8-3", "task": "Configure GitHub Actions pipeline", "status": "done" },
+      { "id": "M8-4", "task": "Create unit tests for UI components", "status": "done" },
+      { "id": "M8-5", "task": "Integrate code coverage reporting", "status": "done" }
     ],
-    "status": "todo"
+    "status": "done"
   }
 ]
+
+

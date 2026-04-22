@@ -1,4 +1,4 @@
-import { QueryClient } from '@tanstack/react-query';
+import { QueryClient } from '@tanstack/react-query'
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -8,13 +8,13 @@ export const queryClient = new QueryClient({
       retry: (failureCount, error) => {
         // Don't retry on 4xx errors
         if (error instanceof Error && error.message.includes('4')) {
-          return false;
+          return false
         }
-        return failureCount < 3;
+        return failureCount < 3
       },
     },
     mutations: {
       retry: false,
     },
   },
-});
+})
