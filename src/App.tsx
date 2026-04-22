@@ -1,120 +1,76 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useTheme } from '@/app/ThemeProvider'
+import { Sun, Moon, Briefcase } from 'lucide-react'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { theme, toggleTheme } = useTheme()
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
+    <div style={{ padding: '2rem', maxWidth: '800px', margin: '0 auto' }}>
+      <header
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: '2rem',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <Briefcase size={32} color="var(--color-primary)" />
+          <h1 style={{ fontSize: '1.5rem' }}>JobHunter</h1>
         </div>
         <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
+          onClick={toggleTheme}
+          className="glass"
+          style={{
+            padding: '0.5rem',
+            width: '40px',
+            height: '40px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
         >
-          Count is {count}
+          {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
         </button>
-      </section>
+      </header>
 
-      <div className="ticks"></div>
+      <main style={{ display: 'grid', gap: '1.5rem' }}>
+        <section className="glass-card">
+          <h2>Welcome to JobHunter</h2>
+          <p>This is a preview of the glassmorphism design system.</p>
+          <div style={{ marginTop: '1rem', display: 'flex', gap: '1rem' }}>
+            <button className="btn-primary">Get Started</button>
+            <button className="glass" style={{ padding: '0.75rem 1.5rem', fontWeight: 600 }}>
+              Learn More
+            </button>
+          </div>
+        </section>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+        <section
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gap: '1rem',
+          }}
+        >
+          <div className="glass-card" style={{ borderLeft: '4px solid var(--color-success)' }}>
+            <h3 style={{ color: 'var(--color-success)' }}>Applications</h3>
+            <p style={{ fontSize: '2rem', fontWeight: 700, margin: '0.5rem 0' }}>12</p>
+            <p>Active this month</p>
+          </div>
+          <div className="glass-card" style={{ borderLeft: '4px solid var(--color-warning)' }}>
+            <h3 style={{ color: 'var(--color-warning)' }}>Interviews</h3>
+            <p style={{ fontSize: '2rem', fontWeight: 700, margin: '0.5rem 0' }}>4</p>
+            <p>Scheduled</p>
+          </div>
+          <div className="glass-card" style={{ borderLeft: '4px solid var(--color-primary)' }}>
+            <h3 style={{ color: 'var(--color-primary)' }}>Offers</h3>
+            <p style={{ fontSize: '2rem', fontWeight: 700, margin: '0.5rem 0' }}>2</p>
+            <p>Received</p>
+          </div>
+        </section>
+      </main>
+    </div>
   )
 }
 

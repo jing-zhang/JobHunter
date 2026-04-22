@@ -14,11 +14,11 @@
     "id": "M2",
     "task": "Design System",
     "subtasks": [
-      { "id": "M2-1", "task": "Create variables.css with color tokens", "status": "todo" },
-      { "id": "M2-2", "task": "Implement global.css with glassmorphism styles", "status": "todo" },
-      { "id": "M2-3", "task": "Setup ThemeProvider for dark mode", "status": "todo" }
+      { "id": "M2-1", "task": "Create variables.css with color tokens", "status": "done" },
+      { "id": "M2-2", "task": "Implement global.css with glassmorphism styles", "status": "done" },
+      { "id": "M2-3", "task": "Setup ThemeProvider for dark mode", "status": "done" }
     ],
-    "status": "todo"
+    "status": "done"
   },
   {
     "id": "M3",
