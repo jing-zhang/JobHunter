@@ -8,7 +8,7 @@
 | **M1: Scaffold** | ✅ Complete | Project initialization and configuration. |
 | **M2: Design System** | ✅ Complete | CSS variables and global styling. |
 | **M3: Layout & Nav** | ✅ Complete | Sidebar and routing setup. |
-| **M4: Mock API** | ⏳ Pending | json-server and React-Query setup. |
+| **M4: Mock API** | ✅ Complete | json-server setup, React-Query client, API services, and unit tests implemented. |
 | **M5: Dashboard** | ⏳ Pending | Core dashboard components. |
 | **M6: Applications** | ⏳ Pending | List and detail views. |
 | **M7: Interviews/Offers**| ⏳ Pending | Secondary views. |
@@ -16,6 +16,7 @@
 | **M9: Polish & Docs** | ⏳ Pending | Final touches. |
 
 ## Recent Activity
+- **M4 Complete**: Set up json-server with comprehensive mock data (applications, interviews, offers), configured React-Query client with proper caching and error handling, created base API services with TypeScript types, integrated QueryClientProvider into the app, and added unit tests for API hooks with Vitest.
 - Implemented Layout & Navigation with Sidebar, Header, and React Router setup (M3). Fixed JSX syntax error in App.tsx.
 - Created `planning.md` with detailed tech stack and API specs.
 - Initialized harness engineering files (`todo.json`, `progress.md`, `harness.md`).

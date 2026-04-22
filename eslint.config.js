@@ -19,7 +19,6 @@ export default defineConfig([
     ],
     plugins: {
       'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
       prettier,
     },
     rules: {

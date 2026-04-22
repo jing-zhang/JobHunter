@@ -34,11 +34,12 @@
     "id": "M4",
     "task": "Mock API & Data Fetching",
     "subtasks": [
-      { "id": "M4-1", "task": "Setup json-server and db.json", "status": "todo" },
-      { "id": "M4-2", "task": "Configure React-Query client", "status": "todo" },
-      { "id": "M4-3", "task": "Create base API services", "status": "todo" }
+      { "id": "M4-1", "task": "Setup json-server and db.json", "status": "done" },
+      { "id": "M4-2", "task": "Configure React-Query client", "status": "done" },
+      { "id": "M4-3", "task": "Create base API services", "status": "done" },
+      { "id": "M4-4", "task": "Create unit tests for API hooks", "status": "done" }
     ],
-    "status": "todo"
+    "status": "done"
   },
   {
     "id": "M5",

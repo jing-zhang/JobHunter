@@ -1,0 +1,126 @@
+{
+  "applications": [
+    {
+      "id": 1,
+      "company": "TechCorp Inc.",
+      "position": "Senior Frontend Developer",
+      "location": "San Francisco, CA",
+      "salary": 120000,
+      "status": "applied",
+      "appliedDate": "2024-01-15",
+      "lastUpdated": "2024-01-15",
+      "notes": "Excited about the team culture and tech stack",
+      "url": "https://techcorp.com/careers/frontend-dev"
+    },
+    {
+      "id": 2,
+      "company": "StartupXYZ",
+      "position": "Full Stack Engineer",
+      "location": "Remote",
+      "salary": 95000,
+      "status": "interviewing",
+      "appliedDate": "2024-01-10",
+      "lastUpdated": "2024-01-20",
+      "notes": "Great initial phone screen, technical interview scheduled",
+      "url": "https://startupxyz.com/jobs/fullstack"
+    },
+    {
+      "id": 3,
+      "company": "BigTech Solutions",
+      "position": "React Developer",
+      "location": "New York, NY",
+      "salary": 110000,
+      "status": "offer",
+      "appliedDate": "2024-01-05",
+      "lastUpdated": "2024-01-25",
+      "notes": "Received offer, need to review benefits package",
+      "url": "https://bigtech.com/careers/react-dev"
+    },
+    {
+      "id": 4,
+      "company": "InnovateLabs",
+      "position": "Frontend Architect",
+      "location": "Austin, TX",
+      "salary": 135000,
+      "status": "rejected",
+      "appliedDate": "2024-01-08",
+      "lastUpdated": "2024-01-18",
+      "notes": "Position filled internally",
+      "url": "https://innovatelabs.com/jobs/architect"
+    },
+    {
+      "id": 5,
+      "company": "DataFlow Systems",
+      "position": "UI/UX Developer",
+      "location": "Seattle, WA",
+      "salary": 105000,
+      "status": "applied",
+      "appliedDate": "2024-01-22",
+      "lastUpdated": "2024-01-22",
+      "notes": "Interesting focus on data visualization",
+      "url": "https://dataflow.com/careers/ui-dev"
+    }
+  ],
+  "interviews": [
+    {
+      "id": 1,
+      "applicationId": 2,
+      "company": "StartupXYZ",
+      "position": "Full Stack Engineer",
+      "type": "technical",
+      "scheduledDate": "2024-01-28T14:00:00Z",
+      "status": "scheduled",
+      "notes": "Prepare for React and Node.js questions",
+      "interviewer": "Sarah Johnson",
+      "location": "Zoom"
+    },
+    {
+      "id": 2,
+      "applicationId": 2,
+      "company": "StartupXYZ",
+      "position": "Full Stack Engineer",
+      "type": "behavioral",
+      "scheduledDate": "2024-02-02T10:00:00Z",
+      "status": "scheduled",
+      "notes": "Follow-up interview with team lead",
+      "interviewer": "Mike Chen",
+      "location": "Zoom"
+    },
+    {
+      "id": 3,
+      "applicationId": 5,
+      "company": "DataFlow Systems",
+      "position": "UI/UX Developer",
+      "type": "portfolio_review",
+      "scheduledDate": "2024-01-30T15:30:00Z",
+      "status": "scheduled",
+      "notes": "Bring portfolio and discuss design process",
+      "interviewer": "Emma Davis",
+      "location": "In-person"
+    }
+  ],
+  "offers": [
+    {
+      "id": 1,
+      "applicationId": 3,
+      "company": "BigTech Solutions",
+      "position": "React Developer",
+      "salary": 110000,
+      "bonus": 5000,
+      "equity": "0.5%",
+      "benefits": ["Health Insurance", "401k Match", "Remote Work"],
+      "status": "pending",
+      "receivedDate": "2024-01-25",
+      "expirationDate": "2024-02-05",
+      "notes": "Competitive offer, need to negotiate equity"
+    }
+  ],
+  "dashboard": {
+    "stats": {
+      "activeApplications": 3,
+      "upcomingInterviews": 3,
+      "pendingOffers": 1,
+      "progressPct": 75
+    }
+  }
+}
