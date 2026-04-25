@@ -16,7 +16,11 @@
 | **M9: Polish & Docs** | ⏳ Pending | Final touches. |
 
 ## Recent Activity
-- **M6 Complete**: Implemented reusable `DataTable` and `Modal` components with full unit tests. Built the Applications page featuring search, filtering, and application detail management (edit/delete). Refactored `QuickAddModal` for consistency. Verified and integrated application CRUD hooks.
+- **M6 Complete**: 
+  - **Generic Components**: Implemented reusable `DataTable` and `Modal` components with full unit tests.
+  - **Applications Page**: Built the main list view with search/filtering and the detailed management view (edit/delete).
+  - **Modern UI**: Created `src/styles/forms.css` to centralize glassmorphic form styling, ensuring a cohesive look across all modals.
+  - **Stability & Consistency**: Refactored `QuickAddModal` for design alignment and resolved runtime `SyntaxError` issues by standardizing on `import type` for type-only exports.
 - **M5 Complete**: Created comprehensive unit tests for all Dashboard UI components (StatCard, CircularProgress, QuickAddFAB, QuickAddModal, and Dashboard page). All 64 tests passing (6 test files).
 - **M4 Complete**: Set up json-server with comprehensive mock data (applications, interviews, offers), configured React-Query client with proper caching and error handling, created base API services with TypeScript types, integrated QueryClientProvider into the app, and added unit tests for API hooks with Vitest.
 - Implemented Layout & Navigation with Sidebar, Header, and React Router setup (M3). Fixed JSX syntax error in App.tsx.
