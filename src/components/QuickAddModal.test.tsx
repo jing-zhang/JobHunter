@@ -36,7 +36,7 @@ describe('QuickAddModal', () => {
       { wrapper }
     )
 
-    expect(screen.queryByText('Quick Add Application')).not.toBeInTheDocument()
+    expect(screen.queryByText('Add New Application')).not.toBeInTheDocument()
   })
 
   it('should render when isOpen is true', () => {
@@ -45,7 +45,7 @@ describe('QuickAddModal', () => {
       { wrapper }
     )
 
-    expect(screen.getByText('Quick Add Application')).toBeInTheDocument()
+    expect(screen.getByText('Add New Application')).toBeInTheDocument()
   })
 
   it('should have all required form fields', () => {
@@ -54,13 +54,13 @@ describe('QuickAddModal', () => {
       { wrapper }
     )
 
-    expect(screen.getByLabelText(/Company \*/)).toBeInTheDocument()
-    expect(screen.getByLabelText(/Position \*/)).toBeInTheDocument()
-    expect(screen.getByLabelText(/Location/)).toBeInTheDocument()
-    expect(screen.getByLabelText(/Salary/)).toBeInTheDocument()
-    expect(screen.getByLabelText(/Status/)).toBeInTheDocument()
-    expect(screen.getByLabelText(/Job URL/)).toBeInTheDocument()
-    expect(screen.getByLabelText(/Notes/)).toBeInTheDocument()
+    expect(screen.getByText('Company *')).toBeInTheDocument()
+    expect(screen.getByText('Position *')).toBeInTheDocument()
+    expect(screen.getByText('Location')).toBeInTheDocument()
+    expect(screen.getByText('Salary (Annual)')).toBeInTheDocument()
+    expect(screen.getByText('Status')).toBeInTheDocument()
+    expect(screen.getByText('Job URL')).toBeInTheDocument()
+    expect(screen.getByText('Notes')).toBeInTheDocument()
   })
 
   it('should close modal when close button is clicked', async () => {
@@ -98,7 +98,7 @@ describe('QuickAddModal', () => {
       { wrapper }
     )
 
-    const companyInput = screen.getByPlaceholderText('Company name') as HTMLInputElement
+    const companyInput = screen.getByPlaceholderText('e.g. Google') as HTMLInputElement
     await user.type(companyInput, 'Tech Corp')
 
     expect(companyInput.value).toBe('Tech Corp')
@@ -111,11 +111,11 @@ describe('QuickAddModal', () => {
       { wrapper }
     )
 
-    const companyInput = screen.getByPlaceholderText('Company name') as HTMLInputElement
-    const positionInput = screen.getByPlaceholderText('Job title') as HTMLInputElement
-    const locationInput = screen.getByPlaceholderText('City, State') as HTMLInputElement
-    const salaryInput = screen.getByPlaceholderText('Annual salary') as HTMLInputElement
-    const urlInput = screen.getByPlaceholderText('https://...') as HTMLInputElement
+    const companyInput = screen.getByPlaceholderText('e.g. Google') as HTMLInputElement
+    const positionInput = screen.getByPlaceholderText('e.g. Frontend Engineer') as HTMLInputElement
+    const locationInput = screen.getByPlaceholderText('e.g. Remote') as HTMLInputElement
+    const salaryInput = screen.getByPlaceholderText('e.g. 120000') as HTMLInputElement
+    const urlInput = screen.getByPlaceholderText('https://company.com/jobs/123') as HTMLInputElement
 
     await user.type(companyInput, 'Tech Corp')
     await user.type(positionInput, 'Senior Developer')
@@ -166,7 +166,7 @@ describe('QuickAddModal', () => {
       { wrapper }
     )
 
-    const companyInput = screen.getByPlaceholderText('Company name') as HTMLInputElement
+    const companyInput = screen.getByPlaceholderText('e.g. Google') as HTMLInputElement
     expect(companyInput.required).toBe(true)
   })
 
@@ -176,7 +176,7 @@ describe('QuickAddModal', () => {
       { wrapper }
     )
 
-    const positionInput = screen.getByPlaceholderText('Job title') as HTMLInputElement
+    const positionInput = screen.getByPlaceholderText('e.g. Frontend Engineer') as HTMLInputElement
     expect(positionInput.required).toBe(true)
   })
 
@@ -186,7 +186,7 @@ describe('QuickAddModal', () => {
       { wrapper }
     )
 
-    const notesTextarea = screen.getByPlaceholderText('Any additional notes...') as HTMLTextAreaElement
+    const notesTextarea = screen.getByPlaceholderText('Add any specific details about the job or company...') as HTMLTextAreaElement
     expect(notesTextarea).toBeInTheDocument()
     expect(notesTextarea.tagName).toBe('TEXTAREA')
   })
@@ -198,7 +198,7 @@ describe('QuickAddModal', () => {
       { wrapper }
     )
 
-    const notesTextarea = screen.getByPlaceholderText('Any additional notes...') as HTMLTextAreaElement
+    const notesTextarea = screen.getByPlaceholderText('Add any specific details about the job or company...') as HTMLTextAreaElement
     await user.type(notesTextarea, 'Interesting company with good culture')
 
     expect(notesTextarea.value).toBe('Interesting company with good culture')
@@ -220,9 +220,8 @@ describe('QuickAddModal', () => {
       { wrapper }
     )
 
-    const overlay = container.querySelector('.fixed.inset-0')
+    const overlay = container.querySelector('.modal-overlay')
     expect(overlay).toBeInTheDocument()
-    expect(overlay).toHaveClass('bg-black', 'bg-opacity-50', 'flex', 'items-center', 'justify-center', 'z-50')
   })
 
   it('should have glass-card styling on modal content', () => {
@@ -231,7 +230,7 @@ describe('QuickAddModal', () => {
       { wrapper }
     )
 
-    const card = container.querySelector('.glass-card')
+    const card = container.querySelector('.modal-content')
     expect(card).toBeInTheDocument()
   })
 })

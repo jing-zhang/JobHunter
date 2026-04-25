@@ -51,7 +51,7 @@ describe('QuickAddFAB', () => {
     await user.click(button)
 
     // Modal should appear with the heading
-    expect(screen.getByText('Quick Add Application')).toBeInTheDocument()
+    expect(screen.getByText('Add New Application')).toBeInTheDocument()
   })
 
   it('should have rounded-full styling for circular shape', () => {
@@ -95,6 +95,6 @@ describe('QuickAddFAB', () => {
     render(<QuickAddFAB />, { wrapper })
 
     // Modal should not be visible initially
-    expect(screen.queryByText('Quick Add Application')).not.toBeInTheDocument()
+    expect(screen.queryByText('Add New Application')).not.toBeInTheDocument()
   })
 })
