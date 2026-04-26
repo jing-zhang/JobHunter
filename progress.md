@@ -20,6 +20,14 @@
 | **M13: Prod Build** | ⏳ Pending | Production build and deployment guide. |
 
 ## Recent Activity
+- **i18n & UI Polish**:
+  - **Chinese Language Support**: Added `LanguageProvider` with full EN/ZH translation system for all modals, forms, and navigation.
+  - **Modal Translations**: Updated `ApplicationDetail`, `InterviewDetail`, `QuickAddModal` to use `t()` hook for all labels, buttons, and placeholders.
+  - **OfferDetail Component**: Created a new edit/delete detail modal for offers with full i18n support (previously missing).
+  - **Concurrent Dev**: Added `concurrently` to run both frontend (5173) and backend (5174) with a single `npm run dev` command.
+  - **Backend Port**: Changed default backend port from 3001 to 5174 to sit adjacent to frontend port 5173.
+  - **InterviewDetail Fields**: Added type, interviewer, location, and notes fields to the interview edit modal.
+  - **Cleanup**: Removed unused Bell/notifications header button, Calendar View button (interviews), and Comparison View button (offers).
 - **M12 Complete**:
   - **Accessibility**: Added ARIA labels to icon-only buttons in `Header.tsx` and `Modal.tsx` for better screen reader support.
   - **Responsiveness**: Refactored `Layout.tsx`, `Sidebar.tsx`, and `Header.tsx` to use responsive Tailwind classes instead of hardcoded inline styles. Added a mobile bottom navigation bar for small screens.

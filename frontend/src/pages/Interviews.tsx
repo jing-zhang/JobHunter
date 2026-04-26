@@ -3,7 +3,7 @@ import { useDeleteInterview, useInterviews } from '@/hooks/api'
 import DataTable from '@/components/DataTable'
 import type { Column } from '@/components/DataTable'
 import type { Interview } from '@/api/endpoints'
-import { Search, Filter, Plus, Calendar, Trash2 } from 'lucide-react'
+import { Search, Filter, Plus, Trash2 } from 'lucide-react'
 import QuickAddModal from '@/components/QuickAddModal'
 import { formatStatus } from '@/utils/format'
 import Modal from '@/components/Modal'
@@ -106,13 +106,6 @@ const Interviews: React.FC = () => {
       >
         <h1 className="text-3xl font-bold">{t('interviews')}</h1>
         <div style={{ display: 'flex', gap: '1rem' }}>
-          <button
-            className="glass"
-            style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1rem' }}
-          >
-            <Calendar size={20} />
-            {t('calendar_view')}
-          </button>
           <button
             className="btn-primary"
             style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}

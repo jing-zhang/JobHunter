@@ -14,7 +14,6 @@ const translations: Translations = {
   add_interview: { en: 'Add Interview', zh: '新增面试' },
   add_offer: { en: 'Add Offer', zh: '新增 Offer' },
   search_applications: { en: 'Search applications...', zh: '搜索投递记录…' },
-  notifications: { en: 'Notifications', zh: '通知' },
   toggle_theme: { en: 'Toggle theme', zh: '切换主题' },
   toggle_language: { en: 'Switch language', zh: '切换语言' },
 
@@ -112,8 +111,6 @@ const translations: Translations = {
 
   // Toolbar buttons
   filter: { en: 'Filter', zh: '筛选' },
-  calendar_view: { en: 'Calendar View', zh: '日历视图' },
-  comparison_view: { en: 'Comparison View', zh: '对比视图' },
 
   // Misc
   open_link: { en: 'Open link', zh: '打开链接' },

@@ -3,7 +3,7 @@ import buildApp from "./app.js";
 
 const start = async () => {
   const app = await buildApp();
-  const port = Number(process.env.PORT) || 3001;
+  const port = Number(process.env.PORT) || 5174;
 
   try {
     await app.listen({ port, host: "0.0.0.0" });

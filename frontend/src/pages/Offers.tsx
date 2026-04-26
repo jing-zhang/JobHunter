@@ -3,7 +3,7 @@ import { useDeleteOffer, useOffers } from '@/hooks/api'
 import DataTable from '@/components/DataTable'
 import type { Column } from '@/components/DataTable'
 import type { Offer } from '@/api/endpoints'
-import { Search, Filter, Plus, TrendingUp, Trash2 } from 'lucide-react'
+import { Search, Filter, Plus, Trash2 } from 'lucide-react'
 import QuickAddModal from '@/components/QuickAddModal'
 import OfferDetail from '@/components/OfferDetail'
 import Modal from '@/components/Modal'
@@ -103,13 +103,6 @@ const Offers: React.FC = () => {
       >
         <h1 className="text-3xl font-bold">{t('job_offers')}</h1>
         <div style={{ display: 'flex', gap: '1rem' }}>
-          <button
-            className="glass"
-            style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1rem' }}
-          >
-            <TrendingUp size={20} />
-            {t('comparison_view')}
-          </button>
           <button
             className="btn-primary"
             style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}

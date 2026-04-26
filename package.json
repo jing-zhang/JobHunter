@@ -8,7 +8,8 @@
     "backend"
   ],
   "scripts": {
-    "dev": "npm -w frontend run dev",
+    "dev": "concurrently -n \"fe:5173,be:5174\" -c cyan,green \"npm -w frontend run dev\" \"npm -w backend run dev\"",
+    "dev:frontend": "npm -w frontend run dev",
     "dev:backend": "npm -w backend run dev",
     "build": "npm -w frontend run build",
     "build:backend": "npm -w backend run build",
@@ -22,6 +23,7 @@
     "test:backend:watch": "npm -w backend run test:watch",
     "test:backend:coverage": "npm -w backend run test:coverage"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
 }

@@ -28,14 +28,22 @@ const InterviewDetail: React.FC<InterviewDetailProps> = ({ interview, onClose })
   const updateInterview = useUpdateInterview()
 
   const [scheduledDateLocal, setScheduledDateLocal] = useState('')
+  const [type, setType] = useState<Interview['type']>(interview.type)
   const [status, setStatus] = useState<Interview['status']>(interview.status)
+  const [interviewer, setInterviewer] = useState(interview.interviewer)
+  const [location, setLocation] = useState(interview.location)
+  const [notes, setNotes] = useState(interview.notes)
 
   const initialLocal = useMemo(() => toDatetimeLocal(interview.scheduledDate), [interview.scheduledDate])
 
   useEffect(() => {
     setScheduledDateLocal(initialLocal)
+    setType(interview.type)
     setStatus(interview.status)
-  }, [initialLocal, interview.status])
+    setInterviewer(interview.interviewer)
+    setLocation(interview.location)
+    setNotes(interview.notes)
+  }, [initialLocal, interview])
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -45,7 +53,11 @@ const InterviewDetail: React.FC<InterviewDetailProps> = ({ interview, onClose })
         id: interview.id,
         data: {
           scheduledDate,
+          type,
           status,
+          interviewer,
+          location,
+          notes,
         },
       })
       onClose()
@@ -68,6 +80,46 @@ const InterviewDetail: React.FC<InterviewDetailProps> = ({ interview, onClose })
           />
         </div>
         <div className="form-group">
+          <label className="form-label">{t('type')}</label>
+          <select
+            className="form-input"
+            value={type}
+            onChange={(e) => setType(e.target.value as Interview['type'])}
+          >
+            <option value="phone_screen">{t('type_phone_screen')}</option>
+            <option value="technical">{t('type_technical')}</option>
+            <option value="behavioral">{t('type_behavioral')}</option>
+            <option value="portfolio_review">{t('type_portfolio_review')}</option>
+            <option value="final">{t('type_final')}</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="form-row">
+        <div className="form-group">
+          <label className="form-label">{t('interviewer')}</label>
+          <input
+            type="text"
+            className="form-input"
+            value={interviewer}
+            onChange={(e) => setInterviewer(e.target.value)}
+            placeholder={t('placeholder_interviewer')}
+          />
+        </div>
+        <div className="form-group">
+          <label className="form-label">{t('interview_location')}</label>
+          <input
+            type="text"
+            className="form-input"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            placeholder={t('placeholder_interview_location')}
+          />
+        </div>
+      </div>
+
+      <div className="form-row">
+        <div className="form-group">
           <label className="form-label">{t('status')}</label>
           <select
             className="form-input"
@@ -79,6 +131,17 @@ const InterviewDetail: React.FC<InterviewDetailProps> = ({ interview, onClose })
             <option value="cancelled">{t('status_cancelled')}</option>
           </select>
         </div>
+      </div>
+
+      <div className="form-group">
+        <label className="form-label">{t('notes')}</label>
+        <textarea
+          className="form-input"
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          rows={3}
+          style={{ resize: 'vertical' }}
+        />
       </div>
 
       <div className="modal-footer" style={{ borderTop: 'none', padding: 0, marginTop: '2rem' }}>

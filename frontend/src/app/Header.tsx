@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTheme } from '@/app/ThemeProvider'
-import { Sun, Moon, Bell, Search } from 'lucide-react'
+import { Sun, Moon, Search } from 'lucide-react'
 import { useLanguage } from '@/app/LanguageProvider'
 
 const Header: React.FC = () => {
@@ -40,21 +40,6 @@ const Header: React.FC = () => {
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-        <button
-          className="glass"
-          aria-label={t('notifications')}
-          style={{
-            width: '40px',
-            height: '40px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: 0,
-          }}
-        >
-          <Bell size={20} color="var(--color-text-secondary)" />
-        </button>
-
         <button
           onClick={toggleLanguage}
           className="glass"
