@@ -13,12 +13,17 @@
 | **M6: Applications** | ✅ Complete | List view with DataTable, Detail view, CRUD operations, and unit tests. |
 | **M7: Interviews/Offers**| ✅ Complete | Secondary views. |
 | **M8: Testing/CI** | ✅ Complete | Test suite and CI pipeline. |
-| **M9: Backend Setup** | ⏳ Pending | Initialize Fastify, Prisma, and SQLite. |
+| **M9: Backend Setup** | ✅ Complete | Initialize Fastify, Prisma, and SQLite. |
 | **M10: Backend API** | ⏳ Pending | Implement CRUD endpoints and logic. |
 | **M11: Integration** | ⏳ Pending | Migration script and frontend integration. |
 | **M12: Polish & Docs** | ⏳ Pending | Final touches and documentation. |
 
 ## Recent Activity
+- **M9 Complete**:
+  - **Backend Foundation**: Initialized a Fastify + TypeScript project in the `backend/` directory.
+  - **Prisma 7 Integration**: Configured Prisma 7 with the `Better-SQLite3` adapter for local data persistence, handling the new requirement for driver adapters and externalized connection URLs.
+  - **Data Modeling**: Defined core relational models (`Application`, `Interview`, `Offer`) and successfully applied initial migrations to generate the SQLite database.
+  - **Server Setup**: Implemented a modular Fastify architecture with dedicated plugins for Prisma and CORS, and integrated `pino-pretty` for enhanced development logging.
 - **M8 Complete**:
   - **Coverage Integration**: Integrated `@vitest/coverage-v8` and configured `vitest.config.ts` to generate text, JSON, and HTML reports. Added `test:coverage` script.
   - **CI/CD Pipeline**: Created a GitHub Actions workflow (`.github/workflows/ci.yml`) to automatically lint, test, and build the project on push/PR.
@@ -44,4 +49,4 @@
 - Implemented Design System with glassmorphism CSS variables and ThemeProvider (M2).
 
 ## Next Task
-- [ ] Initialize Backend project with Fastify & Prisma (M9).
+- [ ] Implement Core API endpoints for Applications, Interviews, and Offers (M10).

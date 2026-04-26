@@ -213,25 +213,25 @@
       {
         "id": "M9-1",
         "task": "Initialize Fastify & TypeScript project",
-        "status": "todo"
+        "status": "done"
       },
       {
         "id": "M9-2",
         "task": "Setup Prisma with SQLite provider",
-        "status": "todo"
+        "status": "done"
       },
       {
         "id": "M9-3",
         "task": "Define core models (Application, Interview, Offer) in schema.prisma",
-        "status": "todo"
+        "status": "done"
       },
       {
         "id": "M9-4",
         "task": "Create basic server setup with Pino logging",
-        "status": "todo"
+        "status": "done"
       }
     ],
-    "status": "todo"
+    "status": "done"
   },
   {
     "id": "M10",
