@@ -5,6 +5,7 @@ import type { Column } from '@/components/DataTable'
 import type { Offer } from '@/api/endpoints'
 import { Search, Filter, Plus, TrendingUp } from 'lucide-react'
 import QuickAddModal from '@/components/QuickAddModal'
+import { formatCurrency, formatDate } from '@/utils/format'
 
 const Offers: React.FC = () => {
   const { data: offers = [], isLoading, error } = useOffers()
@@ -23,11 +24,11 @@ const Offers: React.FC = () => {
     },
     {
       header: 'Base Salary',
-      accessor: (item) => `$${item.salary.toLocaleString()}`,
+      accessor: (item) => formatCurrency(item.salary),
     },
     {
       header: 'Bonus',
-      accessor: (item) => (item.bonus ? `$${item.bonus.toLocaleString()}` : '—'),
+      accessor: (item) => (item.bonus ? formatCurrency(item.bonus) : '—'),
     },
     {
       header: 'Equity',
@@ -35,7 +36,7 @@ const Offers: React.FC = () => {
     },
     {
       header: 'Expiration',
-      accessor: (item) => new Date(item.expirationDate).toLocaleDateString(),
+      accessor: (item) => formatDate(item.expirationDate),
     },
     {
       header: 'Status',

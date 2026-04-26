@@ -5,6 +5,7 @@ import type { Column } from '@/components/DataTable'
 import type { Interview } from '@/api/endpoints'
 import { Search, Filter, Plus, Calendar } from 'lucide-react'
 import QuickAddModal from '@/components/QuickAddModal'
+import { formatDate, formatStatus } from '@/utils/format'
 
 const Interviews: React.FC = () => {
   const { data: interviews = [], isLoading, error } = useInterviews()
@@ -23,7 +24,7 @@ const Interviews: React.FC = () => {
     },
     {
       header: 'Type',
-      accessor: (item) => item.type.replace('_', ' '),
+      accessor: (item) => formatStatus(item.type),
       className: 'text-capitalize',
     },
     {

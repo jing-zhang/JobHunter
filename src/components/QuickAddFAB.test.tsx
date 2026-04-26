@@ -14,6 +14,13 @@ const wrapper = ({ children }: { children: React.ReactNode }) => {
   return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 }
 
+vi.mock('@/hooks/api', () => ({
+  useCreateApplication: () => ({ mutate: vi.fn(), mutateAsync: vi.fn(), isPending: false }),
+  useCreateInterview: () => ({ mutate: vi.fn(), mutateAsync: vi.fn(), isPending: false }),
+  useCreateOffer: () => ({ mutate: vi.fn(), mutateAsync: vi.fn(), isPending: false }),
+  useApplications: () => ({ data: [], isLoading: false }),
+}))
+
 describe('QuickAddFAB', () => {
   it('should render FAB button', () => {
     render(<QuickAddFAB />, { wrapper })
@@ -51,7 +58,7 @@ describe('QuickAddFAB', () => {
     await user.click(button)
 
     // Modal should appear with the heading
-    expect(screen.getByText('Add New Application')).toBeInTheDocument()
+    expect(screen.getByText(/Quick Add Application/i)).toBeInTheDocument()
   })
 
   it('should have rounded-full styling for circular shape', () => {
@@ -95,6 +102,6 @@ describe('QuickAddFAB', () => {
     render(<QuickAddFAB />, { wrapper })
 
     // Modal should not be visible initially
-    expect(screen.queryByText('Add New Application')).not.toBeInTheDocument()
+    expect(screen.queryByText(/Quick Add Application/i)).not.toBeInTheDocument()
   })
 })

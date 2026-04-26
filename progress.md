@@ -12,10 +12,15 @@
 | **M5: Dashboard** | ✅ Complete | Core dashboard components and unit tests. |
 | **M6: Applications** | ✅ Complete | List view with DataTable, Detail view, CRUD operations, and unit tests. |
 | **M7: Interviews/Offers**| ✅ Complete | Secondary views. |
-| **M8: Testing/CI** | ⏳ Pending | Test suite and CI pipeline. |
+| **M8: Testing/CI** | ✅ Complete | Test suite and CI pipeline. |
 | **M9: Polish & Docs** | ⏳ Pending | Final touches. |
 
 ## Recent Activity
+- **M8 Complete**:
+  - **Coverage Integration**: Integrated `@vitest/coverage-v8` and configured `vitest.config.ts` to generate text, JSON, and HTML reports. Added `test:coverage` script.
+  - **CI/CD Pipeline**: Created a GitHub Actions workflow (`.github/workflows/ci.yml`) to automatically lint, test, and build the project on push/PR.
+  - **Utility Testing**: Implemented `src/utils/format.ts` for centralized formatting logic (Currency, Date, Status) and achieved 100% test coverage for these utilities.
+  - **Regression Testing**: Fixed and updated all existing component tests to align with the new tabbed `QuickAddModal` design.
 - **M7 Complete**:
   - **Interviews Page**: Implemented a comprehensive interview tracking list with search, filtering, and status-coded badges.
   - **Offers Page**: Created an offer management and comparison table with salary/bonus formatting and expiration tracking.
@@ -36,4 +41,4 @@
 - Implemented Design System with glassmorphism CSS variables and ThemeProvider (M2).
 
 ## Next Task
-- [ ] Setup Vitest environment and CI pipeline (M8).
+- [ ] Final UI/UX polish and documentation (M9).

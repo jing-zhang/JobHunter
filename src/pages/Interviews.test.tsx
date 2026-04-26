@@ -73,7 +73,7 @@ describe('Interviews Page', () => {
     expect(screen.getByText('Google')).toBeInTheDocument()
     expect(screen.getByText('Meta')).toBeInTheDocument()
     expect(screen.getByText('Frontend Engineer')).toBeInTheDocument()
-    expect(screen.getByText('technical')).toBeInTheDocument()
+    expect(screen.getByText('Technical')).toBeInTheDocument()
     expect(screen.getByText('John Doe')).toBeInTheDocument()
   })
 

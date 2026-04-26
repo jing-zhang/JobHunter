@@ -7,6 +7,7 @@ import { Search, Filter, Plus } from 'lucide-react'
 import Modal from '@/components/Modal'
 import ApplicationDetail from '@/components/ApplicationDetail'
 import QuickAddModal from '@/components/QuickAddModal'
+import { formatCurrency, formatDate, formatStatus } from '@/utils/format'
 
 const Applications: React.FC = () => {
   const { data: applications = [], isLoading, error } = useApplications()
@@ -28,17 +29,17 @@ const Applications: React.FC = () => {
       header: 'Status',
       accessor: (item) => (
         <span className={`status-badge status-${item.status}`}>
-          {item.status.replace('_', ' ')}
+          {formatStatus(item.status)}
         </span>
       ),
     },
     {
       header: 'Applied Date',
-      accessor: (item) => new Date(item.appliedDate).toLocaleDateString(),
+      accessor: (item) => formatDate(item.appliedDate),
     },
     {
       header: 'Salary',
-      accessor: (item) => (item.salary ? `$${item.salary.toLocaleString()}` : 'N/A'),
+      accessor: (item) => (item.salary ? formatCurrency(item.salary) : 'N/A'),
     },
   ]
 

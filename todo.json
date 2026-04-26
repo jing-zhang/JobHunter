@@ -181,29 +181,29 @@
       {
         "id": "M8-1",
         "task": "Setup Vitest environment",
-        "status": "todo"
+        "status": "done"
       },
       {
         "id": "M8-2",
         "task": "Write unit tests for utils & hooks",
-        "status": "todo"
+        "status": "done"
       },
       {
         "id": "M8-3",
         "task": "Configure GitHub Actions pipeline",
-        "status": "todo"
+        "status": "done"
       },
       {
         "id": "M8-4",
         "task": "Create unit tests for UI components",
-        "status": "todo"
+        "status": "done"
       },
       {
         "id": "M8-5",
         "task": "Integrate code coverage reporting",
-        "status": "todo"
+        "status": "done"
       }
     ],
-    "status": "todo"
+    "status": "done"
   }
 ]

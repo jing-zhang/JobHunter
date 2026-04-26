@@ -120,24 +120,42 @@ const QuickAddModal: React.FC<QuickAddModalProps> = ({ isOpen, onClose }) => {
           <div className="form-row">
             <div className="form-group">
               <label className="form-label">Company *</label>
-              <input type="text" required value={appData.company} onChange={e => setAppData({...appData, company: e.target.value})} className="form-input" placeholder="Google" />
+              <input type="text" required value={appData.company} onChange={e => setAppData({...appData, company: e.target.value})} className="form-input" placeholder="e.g. Google" />
             </div>
             <div className="form-group">
               <label className="form-label">Position *</label>
-              <input type="text" required value={appData.position} onChange={e => setAppData({...appData, position: e.target.value})} className="form-input" placeholder="Frontend Engineer" />
+              <input type="text" required value={appData.position} onChange={e => setAppData({...appData, position: e.target.value})} className="form-input" placeholder="e.g. Frontend Engineer" />
             </div>
           </div>
           <div className="form-row">
             <div className="form-group">
               <label className="form-label">Location</label>
-              <input type="text" value={appData.location} onChange={e => setAppData({...appData, location: e.target.value})} className="form-input" placeholder="Remote" />
+              <input type="text" value={appData.location} onChange={e => setAppData({...appData, location: e.target.value})} className="form-input" placeholder="e.g. Remote" />
             </div>
             <div className="form-group">
-              <label className="form-label">Salary</label>
-              <input type="number" value={appData.salary} onChange={e => setAppData({...appData, salary: e.target.value})} className="form-input" placeholder="120000" />
+              <label className="form-label">Salary (Annual)</label>
+              <input type="number" value={appData.salary} onChange={e => setAppData({...appData, salary: e.target.value})} className="form-input" placeholder="e.g. 120000" />
             </div>
           </div>
-          <div className="modal-footer">
+          <div className="form-group">
+            <label className="form-label">Status</label>
+            <select value={appData.status} onChange={e => setAppData({...appData, status: e.target.value as any})} className="form-input">
+              <option value="applied">Applied</option>
+              <option value="interviewing">Interviewing</option>
+              <option value="offer">Offer</option>
+              <option value="rejected">Rejected</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label className="form-label">Job URL</label>
+            <input type="url" value={appData.url} onChange={e => setAppData({...appData, url: e.target.value})} className="form-input" placeholder="https://company.com/jobs/123" />
+          </div>
+          <div className="form-group">
+            <label className="form-label">Notes</label>
+            <textarea value={appData.notes} onChange={e => setAppData({...appData, notes: e.target.value})} className="form-input" placeholder="Add any specific details about the job or company..." rows={3} />
+          </div>
+          <div className="modal-footer" style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
+            <button type="button" onClick={onClose} className="btn-secondary">Cancel</button>
             <button type="submit" className="btn-primary"><Plus size={18} /> Add Application</button>
           </div>
         </form>
@@ -170,7 +188,8 @@ const QuickAddModal: React.FC<QuickAddModalProps> = ({ isOpen, onClose }) => {
               <input type="datetime-local" required value={interviewData.scheduledDate} onChange={e => setInterviewData({...interviewData, scheduledDate: e.target.value})} className="form-input" />
             </div>
           </div>
-          <div className="modal-footer">
+          <div className="modal-footer" style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
+            <button type="button" onClick={onClose} className="btn-secondary">Cancel</button>
             <button type="submit" className="btn-primary"><Plus size={18} /> Add Interview</button>
           </div>
         </form>
@@ -201,7 +220,8 @@ const QuickAddModal: React.FC<QuickAddModalProps> = ({ isOpen, onClose }) => {
             <label className="form-label">Expiration Date *</label>
             <input type="date" required value={offerData.expirationDate} onChange={e => setOfferData({...offerData, expirationDate: e.target.value})} className="form-input" />
           </div>
-          <div className="modal-footer">
+          <div className="modal-footer" style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
+            <button type="button" onClick={onClose} className="btn-secondary">Cancel</button>
             <button type="submit" className="btn-primary"><Plus size={18} /> Add Offer</button>
           </div>
         </form>

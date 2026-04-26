@@ -13,6 +13,9 @@ vi.mock('@/hooks/api', () => ({
     mutateAsync: mockMutateAsync,
     isPending: false,
   }),
+  useCreateInterview: () => ({ mutate: vi.fn(), mutateAsync: vi.fn(), isPending: false }),
+  useCreateOffer: () => ({ mutate: vi.fn(), mutateAsync: vi.fn(), isPending: false }),
+  useApplications: () => ({ data: [], isLoading: false }),
 }))
 
 const wrapper = ({ children }: { children: React.ReactNode }) => {
@@ -36,7 +39,7 @@ describe('QuickAddModal', () => {
       { wrapper }
     )
 
-    expect(screen.queryByText('Add New Application')).not.toBeInTheDocument()
+    expect(screen.queryByText(/Quick Add Application/i)).not.toBeInTheDocument()
   })
 
   it('should render when isOpen is true', () => {
@@ -45,7 +48,7 @@ describe('QuickAddModal', () => {
       { wrapper }
     )
 
-    expect(screen.getByText('Add New Application')).toBeInTheDocument()
+    expect(screen.getByText(/Quick Add Application/i)).toBeInTheDocument()
   })
 
   it('should have all required form fields', () => {
