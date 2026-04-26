@@ -7,6 +7,9 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
+    "test": "node ../node_modules/vitest/vitest.mjs run -c vitest.config.ts",
+    "test:watch": "node ../node_modules/vitest/vitest.mjs -c vitest.config.ts",
+    "test:coverage": "node ../node_modules/vitest/vitest.mjs run -c vitest.config.ts --coverage",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev"
   },
