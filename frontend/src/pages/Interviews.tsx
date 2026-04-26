@@ -66,6 +66,10 @@ const Interviews: React.FC = () => {
             if (!ok) return
             try {
               await deleteInterview.mutateAsync(item.id)
+              // Close detail modal if this interview is currently selected
+              if (selectedInterview?.id === item.id) {
+                setSelectedInterview(null)
+              }
             } catch (err) {
               console.error(err)
             }

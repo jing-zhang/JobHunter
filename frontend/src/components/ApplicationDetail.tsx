@@ -7,9 +7,10 @@ import { useLanguage } from '@/app/LanguageProvider'
 interface ApplicationDetailProps {
   application: Application
   onClose: () => void
+  onDeleted?: () => void
 }
 
-const ApplicationDetail: React.FC<ApplicationDetailProps> = ({ application, onClose }) => {
+const ApplicationDetail: React.FC<ApplicationDetailProps> = ({ application, onClose, onDeleted }) => {
   const { t } = useLanguage()
   const [formData, setFormData] = useState<Application>(application)
   const updateMutation = useUpdateApplication()
@@ -46,6 +47,7 @@ const ApplicationDetail: React.FC<ApplicationDetailProps> = ({ application, onCl
     if (window.confirm(t('confirm_delete_application'))) {
       try {
         await deleteMutation.mutateAsync(application.id)
+        onDeleted?.()
         onClose()
       } catch (err) {
         console.error('Failed to delete:', err)

@@ -9,20 +9,25 @@ const Header: React.FC = () => {
 
   return (
     <header
-      className="glass flex justify-between items-center px-4 md:px-6 z-40 relative md:ml-[280px]"
+      className="glass z-40 relative ml-4 md:ml-[280px]"
       style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
         height: '70px',
         marginTop: '1rem',
         marginRight: '1rem',
         marginBottom: '1rem',
         borderRadius: 'var(--radius)',
+        padding: '0 1rem',
+        gap: '1rem',
       }}
     >
-      <div style={{ position: 'relative', width: '300px' }}>
+      <div style={{ position: 'relative', flex: '1 1 auto', minWidth: 0 }}>
         <Search
           size={18}
           color="var(--color-text-secondary)"
-          style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)' }}
+          style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', flexShrink: 0 }}
         />
         <input
           type="text"

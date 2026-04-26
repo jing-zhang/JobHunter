@@ -7,9 +7,10 @@ import { useLanguage } from '@/app/LanguageProvider'
 interface OfferDetailProps {
   offer: Offer
   onClose: () => void
+  onDeleted?: () => void
 }
 
-const OfferDetail: React.FC<OfferDetailProps> = ({ offer, onClose }) => {
+const OfferDetail: React.FC<OfferDetailProps> = ({ offer, onClose, onDeleted }) => {
   const { t } = useLanguage()
   const [formData, setFormData] = useState<Offer>(offer)
   const updateMutation = useUpdateOffer()
@@ -47,6 +48,7 @@ const OfferDetail: React.FC<OfferDetailProps> = ({ offer, onClose }) => {
     if (window.confirm(t('confirm_delete_offer'))) {
       try {
         await deleteMutation.mutateAsync(offer.id)
+        onDeleted?.()
         onClose()
       } catch (err) {
         console.error('Failed to delete offer:', err)

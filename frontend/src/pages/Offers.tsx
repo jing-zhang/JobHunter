@@ -60,11 +60,16 @@ const Offers: React.FC = () => {
           className="btn-danger"
           style={{ padding: '0.4rem 0.6rem' }}
           title={t('delete_offer')}
-          onClick={async () => {
+          onClick={async (e) => {
+            e.stopPropagation()
             const ok = window.confirm(t('confirm_delete_offer'))
             if (!ok) return
             try {
               await deleteOffer.mutateAsync(item.id)
+              // Close detail modal if this offer is currently selected
+              if (selectedOffer?.id === item.id) {
+                setSelectedOffer(null)
+              }
             } catch (err) {
               console.error(err)
             }
@@ -179,7 +184,11 @@ const Offers: React.FC = () => {
         title={t('offer_details')}
       >
         {selectedOffer && (
-          <OfferDetail offer={selectedOffer} onClose={() => setSelectedOffer(null)} />
+          <OfferDetail 
+            offer={selectedOffer} 
+            onClose={() => setSelectedOffer(null)}
+            onDeleted={() => setSelectedOffer(null)}
+          />
         )}
       </Modal>
 

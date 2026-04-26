@@ -115,6 +115,7 @@ const translations: Translations = {
   // Misc
   open_link: { en: 'Open link', zh: '打开链接' },
   close_modal: { en: 'Close modal', zh: '关闭弹窗' },
+  delete_application: { en: 'Delete application', zh: '删除投递' },
   delete_interview: { en: 'Delete interview', zh: '删除面试' },
   delete_offer: { en: 'Delete offer', zh: '删除 Offer' },
 

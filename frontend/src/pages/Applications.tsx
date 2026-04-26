@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { useApplications } from '@/hooks/api'
+import { useApplications, useDeleteApplication } from '@/hooks/api'
 import DataTable from '@/components/DataTable'
 import type { Column } from '@/components/DataTable'
 import type { Application } from '@/api/endpoints'
-import { Search, Filter, Plus } from 'lucide-react'
+import { Search, Filter, Plus, Trash2 } from 'lucide-react'
 import Modal from '@/components/Modal'
 import ApplicationDetail from '@/components/ApplicationDetail'
 import QuickAddModal from '@/components/QuickAddModal'
@@ -12,6 +12,7 @@ import { useLanguage } from '@/app/LanguageProvider'
 
 const Applications: React.FC = () => {
   const { data: applications = [], isLoading, error } = useApplications()
+  const deleteApplication = useDeleteApplication()
   const { t } = useLanguage()
   const [selectedApp, setSelectedApp] = useState<Application | null>(null)
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
@@ -42,6 +43,34 @@ const Applications: React.FC = () => {
     {
       header: t('salary'),
       accessor: (item) => (item.salary ? formatCurrency(item.salary) : 'N/A'),
+    },
+    {
+      header: '',
+      accessor: (item) => (
+        <button
+          type="button"
+          className="btn-danger"
+          style={{ padding: '0.4rem 0.6rem' }}
+          title={t('delete_application')}
+          onClick={async (e) => {
+            e.stopPropagation()
+            const ok = window.confirm(t('confirm_delete_application'))
+            if (!ok) return
+            try {
+              await deleteApplication.mutateAsync(item.id)
+              // Close detail modal if this application is currently selected
+              if (selectedApp?.id === item.id) {
+                setSelectedApp(null)
+              }
+            } catch (err) {
+              console.error(err)
+            }
+          }}
+          disabled={deleteApplication.isPending}
+        >
+          <Trash2 size={16} />
+        </button>
+      ),
     },
   ]
 
@@ -149,6 +178,7 @@ const Applications: React.FC = () => {
           <ApplicationDetail
             application={selectedApp}
             onClose={() => setSelectedApp(null)}
+            onDeleted={() => setSelectedApp(null)}
           />
         )}
       </Modal>

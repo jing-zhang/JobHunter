@@ -102,13 +102,22 @@ export default async function offerRoutes(fastify: FastifyInstance) {
     try {
       const offerId = parseInt(id);
       await fastify.prisma.$transaction(async (tx) => {
-        const deletedOffer = await tx.offer.delete({
+        // Check if offer exists first
+        const offer = await tx.offer.findUnique({
           where: { id: offerId },
           select: { applicationId: true },
         });
 
-        const counts = await tx.application.findUnique({
-          where: { id: deletedOffer.applicationId },
+        if (!offer) {
+          throw new Error("Offer not found");
+        }
+
+        await tx.offer.delete({
+          where: { id: offerId },
+        });
+
+        const application = await tx.application.findUnique({
+          where: { id: offer.applicationId },
           select: {
             _count: {
               select: { interviews: true, offers: true },
@@ -117,22 +126,23 @@ export default async function offerRoutes(fastify: FastifyInstance) {
         });
 
         // Application may already be deleted (or cascading didn't run).
-        if (!counts) return;
+        if (!application) return;
 
-        const interviewsCount = counts?._count.interviews ?? 0;
-        const offersCount = counts?._count.offers ?? 0;
+        const interviewsCount = application._count.interviews ?? 0;
+        const offersCount = application._count.offers ?? 0;
 
         const nextStatus = offersCount > 0 ? "offer" : interviewsCount > 0 ? "interviewing" : "applied";
 
         await tx.application.update({
-          where: { id: deletedOffer.applicationId },
+          where: { id: offer.applicationId },
           data: { status: nextStatus },
         });
       });
       return reply.status(204).send();
     } catch (error) {
       fastify.log.error(error);
-      if ((error as any).code === "P2025") {
+      const message = (error as any).message || "";
+      if ((error as any).code === "P2025" || message === "Offer not found") {
         return reply.status(404).send({ error: "Offer not found" });
       }
       return reply.status(500).send({ error: "Internal Server Error" });
