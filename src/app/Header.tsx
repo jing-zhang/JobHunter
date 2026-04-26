@@ -7,14 +7,10 @@ const Header: React.FC = () => {
 
   return (
     <header
-      className="glass"
+      className="glass flex justify-between items-center px-4 md:px-6 z-40 relative"
       style={{
         height: '70px',
-        margin: '1rem 1rem 1rem 280px',
-        padding: '0 1.5rem',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        margin: '1rem',
         borderRadius: 'var(--radius)',
       }}
     >
@@ -42,6 +38,7 @@ const Header: React.FC = () => {
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
         <button
           className="glass"
+          aria-label="Notifications"
           style={{
             width: '40px',
             height: '40px',
@@ -57,6 +54,7 @@ const Header: React.FC = () => {
         <button
           onClick={toggleTheme}
           className="glass"
+          aria-label="Toggle theme"
           style={{
             width: '40px',
             height: '40px',

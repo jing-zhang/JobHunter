@@ -281,5 +281,49 @@
       }
     ],
     "status": "done"
+  },
+  {
+    "id": "M12",
+    "task": "Polish & Docs",
+    "subtasks": [
+      {
+        "id": "M12-1",
+        "task": "Verify and improve Accessibility (ARIA labels, keyboard navigation)",
+        "status": "done"
+      },
+      {
+        "id": "M12-2",
+        "task": "Verify responsive breakpoints (mobile/tablet/desktop)",
+        "status": "done"
+      },
+      {
+        "id": "M12-3",
+        "task": "Update README.md and write final project documentation",
+        "status": "done"
+      }
+    ],
+    "status": "done"
+  },
+  {
+    "id": "M13",
+    "task": "Production Build & Deployment",
+    "subtasks": [
+      {
+        "id": "M13-1",
+        "task": "Verify full stack build process",
+        "status": "todo"
+      },
+      {
+        "id": "M13-2",
+        "task": "Final CI/CD pipeline validation",
+        "status": "todo"
+      },
+      {
+        "id": "M13-3",
+        "task": "Provide instructions for running the full stack locally",
+        "status": "todo"
+      }
+    ],
+    "status": "todo"
   }
 ]

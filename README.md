@@ -1,73 +1,103 @@
-# React + TypeScript + Vite
+# JobHunter 🚀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive, and fully-featured application for tracking your job hunt progress. Built with a React + Vite frontend and a Fastify + Prisma + SQLite backend.
 
-Currently, two official plugins are available:
+## 🌟 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Dashboard**: Get a birds-eye view of your job hunt progress with beautiful circular progress indicators and real-time statistics.
+- **Applications Tracking**: Keep track of every job you've applied to, with details like position, company, salary, and status.
+- **Interviews Management**: Schedule and track upcoming interviews, separating them from past ones.
+- **Offer Comparison**: Compare job offers with detailed metrics like equity, bonus, and benefits.
+- **Responsive Design**: fully usable on both desktop and mobile devices.
+- **Dark/Light Mode**: First-class support for theming using a custom ThemeProvider.
+- **Accessibility**: ARIA labels and semantic HTML for screen reader compatibility.
 
-## React Compiler
+## 🛠️ Technology Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Frontend
+- **Framework**: React 18
+- **Build Tool**: Vite
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS + Custom CSS Variables (Glassmorphism)
+- **State Management**: React Query (Server State), Context API (Theme State)
+- **Routing**: React Router DOM v6
+- **Icons**: Lucide React
+- **Testing**: Vitest + React Testing Library
 
-## Expanding the ESLint configuration
+### Backend
+- **Framework**: Fastify
+- **Language**: TypeScript
+- **ORM**: Prisma 7
+- **Database**: SQLite (via `@prisma/adapter-better-sqlite3`)
+- **Validation**: Zod
+- **Logging**: Pino
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Getting Started
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Prerequisites
+- Node.js (v18+)
+- npm
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Installation
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. **Clone the repository** (if applicable) and navigate to the root directory:
+   ```bash
+   cd JobHunter
+   ```
+
+2. **Install frontend dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Install backend dependencies**:
+   ```bash
+   cd backend
+   npm install
+   ```
+
+4. **Initialize the database**:
+   ```bash
+   npx prisma migrate dev
+   ```
+
+### Running the Application
+
+You'll need two terminal windows to run both the frontend and backend servers simultaneously.
+
+**Terminal 1: Backend Server**
+```bash
+cd backend
+npm run dev
+```
+*The backend API will start on `http://localhost:3001`.*
+
+**Terminal 2: Frontend App**
+```bash
+# From the project root
+npm run dev
+```
+*The React app will start on `http://localhost:5173`.*
+
+## 🧪 Testing
+
+The project maintains a high test coverage for critical UI components and custom hooks.
+
+To run the test suite:
+```bash
+npm run test
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+To run tests with coverage reporting:
+```bash
+npm run coverage
 ```
+
+## 🏗️ Architecture
+
+- **Glassmorphism UI**: Uses CSS backdrop-filters mixed with Tailwind classes to create a beautiful frosted-glass effect across cards and overlays.
+- **React Query Hooks**: Data fetching is abstracted into custom hooks (`useApplications`, `useInterviews`, etc.) ensuring components remain clean and focused on rendering.
+- **Relational Backend**: The Prisma schema tightly couples Applications to Interviews and Offers, allowing complex queries (like Dashboard stats) to be resolved efficiently.
+
+## 📜 License
+MIT

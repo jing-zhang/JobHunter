@@ -12,18 +12,10 @@ const Sidebar: React.FC = () => {
 
   return (
     <aside
-      className="glass"
+      className="glass hidden md:flex flex-col fixed left-4 top-4 p-6 gap-8 z-50"
       style={{
         width: '260px',
         height: 'calc(100vh - 2rem)',
-        margin: '1rem',
-        padding: '1.5rem',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '2rem',
-        position: 'fixed',
-        left: 0,
-        top: 0,
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0 0.5rem' }}>

@@ -16,9 +16,14 @@
 | **M9: Backend Setup** | ✅ Complete | Initialize Fastify, Prisma, and SQLite. |
 | **M10: Backend API** | ✅ Complete | Implement CRUD endpoints and logic. |
 | **M11: Integration** | ✅ Complete | Migration script and frontend integration. |
-| **M12: Polish & Docs** | ⏳ Pending | Final touches and documentation. |
+| **M12: Polish & Docs** | ✅ Complete | Final touches and documentation. |
+| **M13: Prod Build** | ⏳ Pending | Production build and deployment guide. |
 
 ## Recent Activity
+- **M12 Complete**:
+  - **Accessibility**: Added ARIA labels to icon-only buttons in `Header.tsx` and `Modal.tsx` for better screen reader support.
+  - **Responsiveness**: Refactored `Layout.tsx`, `Sidebar.tsx`, and `Header.tsx` to use responsive Tailwind classes instead of hardcoded inline styles. Added a mobile bottom navigation bar for small screens.
+  - **Documentation**: Overwrote the default Vite README with comprehensive project documentation, including setup instructions and architecture details.
 - **M11 Complete**:
   - **Data Migration**: Created and executed `migrate.ts` to seamlessly transfer mock data from `db.json` to the new SQLite database using `upsert` logic.
   - **Frontend Integration**: Updated `API_BASE_URL` in `endpoints.ts` to point to the new Fastify backend (`/api/v1`).
@@ -58,4 +63,4 @@
 - Implemented Design System with glassmorphism CSS variables and ThemeProvider (M2).
 
 ## Next Task
-- [ ] Final UI/UX polish and documentation (M12).
+- [ ] Verify full stack build process and pipeline deployment (M13).

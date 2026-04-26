@@ -74,7 +74,7 @@ describe('QuickAddModal', () => {
       { wrapper }
     )
 
-    const closeButton = screen.getByRole('button', { name: '' }).parentElement?.querySelector('button')
+    const closeButton = screen.getByRole('button', { name: 'Close modal' })
     if (closeButton) {
       await user.click(closeButton)
       expect(onClose).toHaveBeenCalled()
