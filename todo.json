@@ -240,25 +240,25 @@
       {
         "id": "M10-1",
         "task": "Implement Application CRUD endpoints",
-        "status": "todo"
+        "status": "done"
       },
       {
         "id": "M10-2",
         "task": "Implement Interview endpoints with 'Upcoming' filter",
-        "status": "todo"
+        "status": "done"
       },
       {
         "id": "M10-3",
         "task": "Implement Offer endpoints",
-        "status": "todo"
+        "status": "done"
       },
       {
         "id": "M10-4",
         "task": "Implement Dashboard statistics endpoint",
-        "status": "todo"
+        "status": "done"
       }
     ],
-    "status": "todo"
+    "status": "done"
   },
   {
     "id": "M11",
@@ -267,19 +267,19 @@
       {
         "id": "M11-1",
         "task": "Create migration script (db.json -> SQLite)",
-        "status": "todo"
+        "status": "done"
       },
       {
         "id": "M11-2",
         "task": "Update Frontend API client baseURL & types",
-        "status": "todo"
+        "status": "done"
       },
       {
         "id": "M11-3",
         "task": "Configure CORS and perform end-to-end testing",
-        "status": "todo"
+        "status": "done"
       }
     ],
-    "status": "todo"
+    "status": "done"
   }
 ]

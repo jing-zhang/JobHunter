@@ -23,6 +23,5 @@ export default fp(async (fastify) => {
 
   fastify.addHook("onClose", async (server) => {
     await server.prisma.$disconnect();
-    client.close();
   });
 });

@@ -14,11 +14,20 @@
 | **M7: Interviews/Offers**| ✅ Complete | Secondary views. |
 | **M8: Testing/CI** | ✅ Complete | Test suite and CI pipeline. |
 | **M9: Backend Setup** | ✅ Complete | Initialize Fastify, Prisma, and SQLite. |
-| **M10: Backend API** | ⏳ Pending | Implement CRUD endpoints and logic. |
-| **M11: Integration** | ⏳ Pending | Migration script and frontend integration. |
+| **M10: Backend API** | ✅ Complete | Implement CRUD endpoints and logic. |
+| **M11: Integration** | ✅ Complete | Migration script and frontend integration. |
 | **M12: Polish & Docs** | ⏳ Pending | Final touches and documentation. |
 
 ## Recent Activity
+- **M11 Complete**:
+  - **Data Migration**: Created and executed `migrate.ts` to seamlessly transfer mock data from `db.json` to the new SQLite database using `upsert` logic.
+  - **Frontend Integration**: Updated `API_BASE_URL` in `endpoints.ts` to point to the new Fastify backend (`/api/v1`).
+  - **API Client Fixes**: Adjusted `getDashboardStats` in the API client to properly unwrap the `stats` object, aligning the frontend's expected data shape with the new backend response format.
+- **M10 Complete**:
+  - **CRUD Endpoints**: Implemented full RESTful API for Applications, Interviews, and Offers using Fastify and Prisma.
+  - **Validation**: Integrated Zod for request body validation, ensuring data integrity across all POST/PATCH operations.
+  - **Dashboard Metrics**: Created an aggregate stats endpoint providing real-time counts for active applications, upcoming interviews, and pending offers.
+  - **Filtering**: Added support for 'upcoming' interview filtering and application-specific interview listing.
 - **M9 Complete**:
   - **Backend Foundation**: Initialized a Fastify + TypeScript project in the `backend/` directory.
   - **Prisma 7 Integration**: Configured Prisma 7 with the `Better-SQLite3` adapter for local data persistence, handling the new requirement for driver adapters and externalized connection URLs.
@@ -49,4 +58,4 @@
 - Implemented Design System with glassmorphism CSS variables and ThemeProvider (M2).
 
 ## Next Task
-- [ ] Implement Core API endpoints for Applications, Interviews, and Offers (M10).
+- [ ] Final UI/UX polish and documentation (M12).

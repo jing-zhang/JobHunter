@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:3001'
+const API_BASE_URL = 'http://localhost:3001/api/v1'
 
 // Types
 export interface Application {
@@ -139,6 +139,7 @@ export const api = {
   getDashboardStats: async (): Promise<DashboardStats> => {
     const response = await fetch(`${API_BASE_URL}/dashboard/stats`)
     if (!response.ok) throw new Error('Failed to fetch dashboard stats')
-    return response.json()
+    const data = await response.json()
+    return data.stats
   },
 }
