@@ -59,10 +59,10 @@ const Interviews: React.FC = () => {
           type="button"
           className="btn-danger"
           style={{ padding: '0.4rem 0.6rem' }}
-          title="Delete interview"
+          title={t('delete_interview')}
           onClick={async (e) => {
             e.stopPropagation()
-            const ok = window.confirm('Delete this interview?')
+            const ok = window.confirm(t('confirm_delete_interview'))
             if (!ok) return
             try {
               await deleteInterview.mutateAsync(item.id)
@@ -111,7 +111,7 @@ const Interviews: React.FC = () => {
             style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1rem' }}
           >
             <Calendar size={20} />
-            Calendar View
+            {t('calendar_view')}
           </button>
           <button
             className="btn-primary"
@@ -147,7 +147,7 @@ const Interviews: React.FC = () => {
           />
           <input
             type="text"
-            placeholder="Search companies, positions, interviewers..."
+            placeholder={t('search_placeholder_int')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             style={{
@@ -172,7 +172,7 @@ const Interviews: React.FC = () => {
           }}
         >
           <Filter size={18} />
-          Filter
+          {t('filter')}
         </button>
       </div>
 
@@ -192,7 +192,7 @@ const Interviews: React.FC = () => {
       <Modal
         isOpen={!!selectedInterview}
         onClose={() => setSelectedInterview(null)}
-        title="Interview Details"
+        title={t('interview_details')}
       >
         {selectedInterview && (
           <InterviewDetail interview={selectedInterview} onClose={() => setSelectedInterview(null)} />

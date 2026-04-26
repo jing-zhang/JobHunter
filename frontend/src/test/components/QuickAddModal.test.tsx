@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import QuickAddModal from '@/components/QuickAddModal'
+import { createTestWrapper } from '@/test/utils/testWrapper'
 
 const mockMutate = vi.fn()
 const mockMutateAsync = vi.fn()
@@ -18,15 +18,7 @@ vi.mock('@/hooks/api', () => ({
   useApplications: () => ({ data: [], isLoading: false }),
 }))
 
-const wrapper = ({ children }: { children: React.ReactNode }) => {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: { retry: false },
-      mutations: { retry: false },
-    },
-  })
-  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-}
+const wrapper = createTestWrapper()
 
 describe('QuickAddModal', () => {
   beforeEach(() => {

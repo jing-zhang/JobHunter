@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import type { Interview } from '@/api/endpoints'
 import { useUpdateInterview } from '@/hooks/api'
 import { Save } from 'lucide-react'
+import { useLanguage } from '@/app/LanguageProvider'
 
 interface InterviewDetailProps {
   interview: Interview
@@ -23,6 +24,7 @@ const toDatetimeLocal = (value: string) => {
 }
 
 const InterviewDetail: React.FC<InterviewDetailProps> = ({ interview, onClose }) => {
+  const { t } = useLanguage()
   const updateInterview = useUpdateInterview()
 
   const [scheduledDateLocal, setScheduledDateLocal] = useState('')
@@ -56,7 +58,7 @@ const InterviewDetail: React.FC<InterviewDetailProps> = ({ interview, onClose })
     <form onSubmit={handleSave}>
       <div className="form-row">
         <div className="form-group">
-          <label className="form-label">Scheduled Time *</label>
+          <label className="form-label">{t('scheduled_time')} *</label>
           <input
             type="datetime-local"
             className="form-input"
@@ -66,22 +68,22 @@ const InterviewDetail: React.FC<InterviewDetailProps> = ({ interview, onClose })
           />
         </div>
         <div className="form-group">
-          <label className="form-label">Status</label>
+          <label className="form-label">{t('status')}</label>
           <select
             className="form-input"
             value={status}
             onChange={(e) => setStatus(e.target.value as Interview['status'])}
           >
-            <option value="scheduled">Scheduled</option>
-            <option value="completed">Completed</option>
-            <option value="cancelled">Cancelled</option>
+            <option value="scheduled">{t('status_scheduled')}</option>
+            <option value="completed">{t('status_completed')}</option>
+            <option value="cancelled">{t('status_cancelled')}</option>
           </select>
         </div>
       </div>
 
       <div className="modal-footer" style={{ borderTop: 'none', padding: 0, marginTop: '2rem' }}>
         <button type="button" onClick={onClose} className="btn-secondary">
-          Cancel
+          {t('cancel')}
         </button>
         <button
           type="submit"
@@ -90,7 +92,7 @@ const InterviewDetail: React.FC<InterviewDetailProps> = ({ interview, onClose })
           disabled={updateInterview.isPending}
         >
           <Save size={18} />
-          {updateInterview.isPending ? 'Saving...' : 'Save'}
+          {updateInterview.isPending ? t('saving') : t('save')}
         </button>
       </div>
     </form>

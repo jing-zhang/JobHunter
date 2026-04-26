@@ -3,6 +3,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import ApplicationDetail from '@/components/ApplicationDetail'
 import type { Application } from '@/api/endpoints'
 import * as apiHooks from '@/hooks/api'
+import { createTestWrapper } from '@/test/utils/testWrapper'
 
 // Mock the hooks
 vi.mock('@/hooks/api', () => ({
@@ -23,6 +24,8 @@ const mockApplication: Application = {
   url: 'https://google.com/jobs',
 }
 
+const wrapper = createTestWrapper()
+
 describe('ApplicationDetail', () => {
   const mockUpdateMutate = vi.fn()
   const mockDeleteMutate = vi.fn()
@@ -40,8 +43,8 @@ describe('ApplicationDetail', () => {
   })
 
   it('renders application details correctly', () => {
-    render(<ApplicationDetail application={mockApplication} onClose={vi.fn()} />)
-    
+    render(<ApplicationDetail application={mockApplication} onClose={vi.fn()} />, { wrapper })
+
     expect(screen.getByDisplayValue('Google')).toBeInTheDocument()
     expect(screen.getByDisplayValue('Software Engineer')).toBeInTheDocument()
     expect(screen.getByDisplayValue('Applied')).toBeInTheDocument()
@@ -49,11 +52,11 @@ describe('ApplicationDetail', () => {
   })
 
   it('calls update mutation when form is submitted', async () => {
-    render(<ApplicationDetail application={mockApplication} onClose={vi.fn()} />)
-    
+    render(<ApplicationDetail application={mockApplication} onClose={vi.fn()} />, { wrapper })
+
     fireEvent.change(screen.getByDisplayValue('Google'), { target: { value: 'Alphabet' } })
     fireEvent.submit(screen.getByRole('button', { name: /save changes/i }))
-    
+
     expect(mockUpdateMutate).toHaveBeenCalledWith({
       id: 1,
       data: expect.objectContaining({ company: 'Alphabet' }),
@@ -62,10 +65,10 @@ describe('ApplicationDetail', () => {
 
   it('calls delete mutation when delete button is clicked', async () => {
     window.confirm = vi.fn().mockReturnValue(true)
-    render(<ApplicationDetail application={mockApplication} onClose={vi.fn()} />)
-    
+    render(<ApplicationDetail application={mockApplication} onClose={vi.fn()} />, { wrapper })
+
     fireEvent.click(screen.getByRole('button', { name: /delete/i }))
-    
+
     expect(mockDeleteMutate).toHaveBeenCalledWith(1)
   })
 })

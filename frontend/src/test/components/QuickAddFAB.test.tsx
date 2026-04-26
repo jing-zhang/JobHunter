@@ -1,18 +1,10 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import userEvent from '@testing-library/user-event'
 import QuickAddFAB from '@/components/QuickAddFAB'
+import { createTestWrapper } from '@/test/utils/testWrapper'
 
-const wrapper = ({ children }: { children: React.ReactNode }) => {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: { retry: false },
-      mutations: { retry: false },
-    },
-  })
-  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-}
+const wrapper = createTestWrapper()
 
 vi.mock('@/hooks/api', () => ({
   useCreateApplication: () => ({ mutate: vi.fn(), mutateAsync: vi.fn(), isPending: false }),

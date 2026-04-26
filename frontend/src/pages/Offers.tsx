@@ -5,6 +5,8 @@ import type { Column } from '@/components/DataTable'
 import type { Offer } from '@/api/endpoints'
 import { Search, Filter, Plus, TrendingUp, Trash2 } from 'lucide-react'
 import QuickAddModal from '@/components/QuickAddModal'
+import OfferDetail from '@/components/OfferDetail'
+import Modal from '@/components/Modal'
 import { formatCurrency, formatDate } from '@/utils/format'
 import { useLanguage } from '@/app/LanguageProvider'
 
@@ -14,6 +16,7 @@ const Offers: React.FC = () => {
   const { t } = useLanguage()
   const [searchTerm, setSearchTerm] = useState('')
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
+  const [selectedOffer, setSelectedOffer] = useState<Offer | null>(null)
 
   const columns: Column<Offer>[] = [
     {
@@ -56,9 +59,9 @@ const Offers: React.FC = () => {
           type="button"
           className="btn-danger"
           style={{ padding: '0.4rem 0.6rem' }}
-          title="Delete offer"
+          title={t('delete_offer')}
           onClick={async () => {
-            const ok = window.confirm('Delete this offer?')
+            const ok = window.confirm(t('confirm_delete_offer'))
             if (!ok) return
             try {
               await deleteOffer.mutateAsync(item.id)
@@ -105,7 +108,7 @@ const Offers: React.FC = () => {
             style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1rem' }}
           >
             <TrendingUp size={20} />
-            Comparison View
+            {t('comparison_view')}
           </button>
           <button
             className="btn-primary"
@@ -141,7 +144,7 @@ const Offers: React.FC = () => {
           />
           <input
             type="text"
-            placeholder="Search companies, positions..."
+            placeholder={t('search_placeholder_offer')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             style={{
@@ -166,7 +169,7 @@ const Offers: React.FC = () => {
           }}
         >
           <Filter size={18} />
-          Filter
+          {t('filter')}
         </button>
       </div>
 
@@ -174,7 +177,18 @@ const Offers: React.FC = () => {
         columns={columns}
         data={filteredOffers}
         isLoading={isLoading}
+        onRowClick={(offer) => setSelectedOffer(offer)}
       />
+
+      <Modal
+        isOpen={!!selectedOffer}
+        onClose={() => setSelectedOffer(null)}
+        title={t('offer_details')}
+      >
+        {selectedOffer && (
+          <OfferDetail offer={selectedOffer} onClose={() => setSelectedOffer(null)} />
+        )}
+      </Modal>
 
       <QuickAddModal
         isOpen={isAddModalOpen}

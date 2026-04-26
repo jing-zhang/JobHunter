@@ -103,7 +103,7 @@ const Applications: React.FC = () => {
           />
           <input
             type="text"
-            placeholder="Search companies, positions..."
+            placeholder={t('search_placeholder_app')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             style={{
@@ -128,7 +128,7 @@ const Applications: React.FC = () => {
           }}
         >
           <Filter size={18} />
-          Filter
+          {t('filter')}
         </button>
       </div>
 
@@ -143,7 +143,7 @@ const Applications: React.FC = () => {
       <Modal
         isOpen={!!selectedApp}
         onClose={() => setSelectedApp(null)}
-        title="Application Details"
+        title={t('application_details')}
       >
         {selectedApp && (
           <ApplicationDetail

@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react'
-import type { Application } from '@/api/endpoints'
-import { useUpdateApplication, useDeleteApplication } from '@/hooks/api'
-import { Trash2, Save, ExternalLink } from 'lucide-react'
+import type { Offer } from '@/api/endpoints'
+import { useUpdateOffer, useDeleteOffer } from '@/hooks/api'
+import { Trash2, Save } from 'lucide-react'
 import { useLanguage } from '@/app/LanguageProvider'
 
-interface ApplicationDetailProps {
-  application: Application
+interface OfferDetailProps {
+  offer: Offer
   onClose: () => void
 }
 
-const ApplicationDetail: React.FC<ApplicationDetailProps> = ({ application, onClose }) => {
+const OfferDetail: React.FC<OfferDetailProps> = ({ offer, onClose }) => {
   const { t } = useLanguage()
-  const [formData, setFormData] = useState<Application>(application)
-  const updateMutation = useUpdateApplication()
-  const deleteMutation = useDeleteApplication()
+  const [formData, setFormData] = useState<Offer>(offer)
+  const updateMutation = useUpdateOffer()
+  const deleteMutation = useDeleteOffer()
 
   useEffect(() => {
-    setFormData(application)
-  }, [application])
+    setFormData(offer)
+  }, [offer])
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
@@ -30,31 +30,32 @@ const ApplicationDetail: React.FC<ApplicationDetailProps> = ({ application, onCl
     e.preventDefault()
     try {
       await updateMutation.mutateAsync({
-        id: application.id,
+        id: offer.id,
         data: {
           ...formData,
           salary: Number(formData.salary),
+          bonus: Number(formData.bonus),
         },
       })
       onClose()
     } catch (err) {
-      console.error('Failed to update:', err)
+      console.error('Failed to update offer:', err)
     }
   }
 
   const handleDelete = async () => {
-    if (window.confirm(t('confirm_delete_application'))) {
+    if (window.confirm(t('confirm_delete_offer'))) {
       try {
-        await deleteMutation.mutateAsync(application.id)
+        await deleteMutation.mutateAsync(offer.id)
         onClose()
       } catch (err) {
-        console.error('Failed to delete:', err)
+        console.error('Failed to delete offer:', err)
       }
     }
   }
 
   return (
-    <form onSubmit={handleUpdate} className="application-detail">
+    <form onSubmit={handleUpdate} className="offer-detail">
       <div className="form-row">
         <div className="form-group">
           <label className="form-label">{t('company')}</label>
@@ -82,6 +83,40 @@ const ApplicationDetail: React.FC<ApplicationDetailProps> = ({ application, onCl
 
       <div className="form-row">
         <div className="form-group">
+          <label className="form-label">{t('base_salary_label')}</label>
+          <input
+            type="number"
+            name="salary"
+            value={formData.salary}
+            onChange={handleChange}
+            className="form-input"
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label className="form-label">{t('bonus_label')}</label>
+          <input
+            type="number"
+            name="bonus"
+            value={formData.bonus}
+            onChange={handleChange}
+            className="form-input"
+          />
+        </div>
+      </div>
+
+      <div className="form-row">
+        <div className="form-group">
+          <label className="form-label">{t('equity_label')}</label>
+          <input
+            type="text"
+            name="equity"
+            value={formData.equity}
+            onChange={handleChange}
+            className="form-input"
+          />
+        </div>
+        <div className="form-group">
           <label className="form-label">{t('status')}</label>
           <select
             name="status"
@@ -89,57 +124,25 @@ const ApplicationDetail: React.FC<ApplicationDetailProps> = ({ application, onCl
             onChange={handleChange}
             className="form-input"
           >
-            <option value="applied">{t('status_applied')}</option>
-            <option value="interviewing">{t('status_interviewing')}</option>
-            <option value="offer">{t('status_offer')}</option>
-            <option value="rejected">{t('status_rejected')}</option>
+            <option value="pending">{t('status_pending')}</option>
+            <option value="accepted">{t('status_accepted')}</option>
+            <option value="declined">{t('status_declined')}</option>
+            <option value="expired">{t('status_expired')}</option>
           </select>
         </div>
+      </div>
+
+      <div className="form-row">
         <div className="form-group">
-          <label className="form-label">{t('salary')}</label>
+          <label className="form-label">{t('expiration_date_label')}</label>
           <input
-            type="number"
-            name="salary"
-            value={formData.salary}
+            type="date"
+            name="expirationDate"
+            value={formData.expirationDate}
             onChange={handleChange}
             className="form-input"
+            required
           />
-        </div>
-      </div>
-
-      <div className="form-group">
-        <label className="form-label">{t('location')}</label>
-        <input
-          type="text"
-          name="location"
-          value={formData.location}
-          onChange={handleChange}
-          className="form-input"
-        />
-      </div>
-
-      <div className="form-group">
-        <label className="form-label">{t('job_url')}</label>
-        <div style={{ display: 'flex', gap: '0.75rem' }}>
-          <input
-            type="url"
-            name="url"
-            value={formData.url}
-            onChange={handleChange}
-            className="form-input"
-          />
-          {formData.url && (
-            <a
-              href={formData.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-secondary"
-              style={{ padding: '0 1rem', display: 'flex', alignItems: 'center' }}
-              title={t('open_link')}
-            >
-              <ExternalLink size={18} />
-            </a>
-          )}
         </div>
       </div>
 
@@ -182,4 +185,4 @@ const ApplicationDetail: React.FC<ApplicationDetailProps> = ({ application, onCl
   )
 }
 
-export default ApplicationDetail
+export default OfferDetail
