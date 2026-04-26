@@ -9,7 +9,7 @@ const Header: React.FC = () => {
 
   return (
     <header
-      className="glass z-40 relative ml-4 md:ml-[280px]"
+      className="glass z-40 relative ml-4 md:ml-[296px]"
       style={{
         display: 'flex',
         justifyContent: 'space-between',
