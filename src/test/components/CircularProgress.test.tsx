@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import CircularProgress from './CircularProgress'
+import CircularProgress from '@/components/CircularProgress'
 
 describe('CircularProgress', () => {
   it('should render with default size and progress', () => {

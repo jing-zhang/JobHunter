@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import Interviews from './Interviews'
+import Interviews from '@/pages/Interviews'
 import type { Interview } from '@/api/endpoints'
 
 const mockInterviews: Interview[] = [

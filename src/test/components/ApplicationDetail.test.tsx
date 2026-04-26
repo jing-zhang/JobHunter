@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import ApplicationDetail from './ApplicationDetail'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import ApplicationDetail from '@/components/ApplicationDetail'
 import type { Application } from '@/api/endpoints'
 import * as apiHooks from '@/hooks/api'
 

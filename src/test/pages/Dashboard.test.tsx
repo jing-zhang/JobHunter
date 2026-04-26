@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import Dashboard from './Dashboard'
+import Dashboard from '@/pages/Dashboard'
 
 const mockDashboardStats = {
   activeApplications: 5,
