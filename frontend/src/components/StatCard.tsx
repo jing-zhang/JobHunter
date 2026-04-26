@@ -3,7 +3,7 @@ import React from 'react'
 interface StatCardProps {
   title: string
   value: number | string
-  icon: React.ComponentType<{ className?: string }>
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>
   className?: string
 }
 

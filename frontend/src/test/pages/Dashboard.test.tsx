@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Dashboard from '@/pages/Dashboard'
+import { LanguageProvider } from '@/app/LanguageProvider'
 
 const mockDashboardStats = {
   activeApplications: 5,
@@ -44,7 +45,11 @@ const wrapper = ({ children }: { children: React.ReactNode }) => {
       mutations: { retry: false },
     },
   })
-  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  return (
+    <QueryClientProvider client={queryClient}>
+      <LanguageProvider>{children}</LanguageProvider>
+    </QueryClientProvider>
+  )
 }
 
 describe('Dashboard', () => {

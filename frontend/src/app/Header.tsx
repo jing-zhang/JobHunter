@@ -1,9 +1,11 @@
 import React from 'react'
 import { useTheme } from '@/app/ThemeProvider'
 import { Sun, Moon, Bell, Search } from 'lucide-react'
+import { useLanguage } from '@/app/LanguageProvider'
 
 const Header: React.FC = () => {
   const { theme, toggleTheme } = useTheme()
+  const { language, toggleLanguage, t } = useLanguage()
 
   return (
     <header
@@ -24,7 +26,7 @@ const Header: React.FC = () => {
         />
         <input
           type="text"
-          placeholder="Search applications..."
+          placeholder={t('search_applications')}
           className="glass"
           style={{
             width: '100%',
@@ -40,7 +42,7 @@ const Header: React.FC = () => {
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
         <button
           className="glass"
-          aria-label="Notifications"
+          aria-label={t('notifications')}
           style={{
             width: '40px',
             height: '40px',
@@ -54,9 +56,27 @@ const Header: React.FC = () => {
         </button>
 
         <button
+          onClick={toggleLanguage}
+          className="glass"
+          aria-label={t('toggle_language')}
+          style={{
+            height: '40px',
+            padding: '0 0.75rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontWeight: 700,
+            color: 'var(--color-text-secondary)',
+            borderRadius: 'var(--radius)',
+          }}
+        >
+          {language === 'en' ? '中文' : 'EN'}
+        </button>
+
+        <button
           onClick={toggleTheme}
           className="glass"
-          aria-label="Toggle theme"
+          aria-label={t('toggle_theme')}
           style={{
             width: '40px',
             height: '40px',

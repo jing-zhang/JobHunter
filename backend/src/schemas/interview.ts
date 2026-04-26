@@ -1,9 +1,15 @@
 import { z } from "zod";
 
+const DateStringSchema = z
+  .string()
+  .min(1)
+  .refine((value) => !Number.isNaN(Date.parse(value)), "Invalid date");
+
 export const CreateInterviewSchema = z.object({
   applicationId: z.number().int().positive(),
   type: z.string().min(1, "Interview type is required"),
-  scheduledDate: z.string().datetime(),
+  // Accept `datetime-local` values like `YYYY-MM-DDTHH:mm` from the browser.
+  scheduledDate: DateStringSchema,
   status: z.enum(["scheduled", "completed", "cancelled"]).default("scheduled"),
   notes: z.string().optional().nullable(),
   interviewer: z.string().optional().nullable(),

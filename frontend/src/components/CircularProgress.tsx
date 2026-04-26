@@ -19,7 +19,7 @@ const CircularProgress: React.FC<CircularProgressProps> = ({
   const strokeDashoffset = circumference - (progress / 100) * circumference
 
   return (
-    <div className="relative">
+    <div className={`relative ${className}`}>
       <svg width={size} height={size} className="transform -rotate-90">
         {/* Background circle */}
         <circle
@@ -54,4 +54,3 @@ const CircularProgress: React.FC<CircularProgressProps> = ({
 }
 
 export default CircularProgress
-

@@ -45,15 +45,27 @@ export default async function interviewRoutes(fastify: FastifyInstance) {
     }
 
     try {
-      const interview = await fastify.prisma.interview.create({
-        data: {
-          ...parseResult.data,
-          scheduledDate: new Date(parseResult.data.scheduledDate),
-        },
-      });
+      const [, interview] = await fastify.prisma.$transaction([
+        fastify.prisma.application.update({
+          where: { id: parseResult.data.applicationId },
+          data: {
+            // Move application into interviewing when an interview is scheduled.
+            status: "interviewing",
+          },
+        }),
+        fastify.prisma.interview.create({
+          data: {
+            ...parseResult.data,
+            scheduledDate: new Date(parseResult.data.scheduledDate),
+          },
+        }),
+      ]);
       return reply.status(201).send(interview);
     } catch (error) {
       fastify.log.error(error);
+      if ((error as any).code === "P2025") {
+        return reply.status(404).send({ error: "Application not found" });
+      }
       return reply.status(500).send({ error: "Internal Server Error" });
     }
   });
@@ -89,8 +101,43 @@ export default async function interviewRoutes(fastify: FastifyInstance) {
   fastify.delete("/:id", async (request, reply) => {
     const { id } = request.params as { id: string };
     try {
-      await fastify.prisma.interview.delete({
-        where: { id: parseInt(id) },
+      const interviewId = parseInt(id);
+      const interview = await fastify.prisma.interview.findUnique({
+        where: { id: interviewId },
+        select: { applicationId: true },
+      });
+
+      if (!interview) {
+        return reply.status(404).send({ error: "Interview not found" });
+      }
+
+      await fastify.prisma.$transaction(async (tx) => {
+        await tx.interview.delete({
+          where: { id: interviewId },
+        });
+
+        const counts = await tx.application.findUnique({
+          where: { id: interview.applicationId },
+          select: {
+            _count: {
+              select: { interviews: true, offers: true },
+            },
+          },
+        });
+
+        // If the application was deleted separately (or cascading didn't run),
+        // there's nothing to update.
+        if (!counts) return;
+
+        const interviewsCount = counts?._count.interviews ?? 0;
+        const offersCount = counts?._count.offers ?? 0;
+
+        const nextStatus = offersCount > 0 ? "offer" : interviewsCount > 0 ? "interviewing" : "applied";
+
+        await tx.application.update({
+          where: { id: interview.applicationId },
+          data: { status: nextStatus },
+        });
       });
       return reply.status(204).send();
     } catch (error) {

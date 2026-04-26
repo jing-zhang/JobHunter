@@ -96,8 +96,12 @@ export default async function applicationRoutes(fastify: FastifyInstance) {
   fastify.delete("/:id", async (request, reply) => {
     const { id } = request.params as { id: string };
     try {
-      await fastify.prisma.application.delete({
-        where: { id: parseInt(id) },
+      const applicationId = parseInt(id);
+      await fastify.prisma.$transaction(async (tx) => {
+        // Ensure dependent rows are removed even if SQLite FK cascading isn't enabled.
+        await tx.interview.deleteMany({ where: { applicationId } });
+        await tx.offer.deleteMany({ where: { applicationId } });
+        await tx.application.delete({ where: { id: applicationId } });
       });
       return reply.status(204).send();
     } catch (error) {

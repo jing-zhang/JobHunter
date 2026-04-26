@@ -14,13 +14,24 @@ export const formatCurrency = (amount: number): string => {
  */
 export const formatDate = (dateString: string): string => {
   if (!dateString) return 'N/A'
-  // Use slashes to avoid timezone shifts in some environments
-  const date = new Date(dateString.replace(/-/g, '\/'))
-  if (isNaN(date.getTime())) return 'Invalid Date'
+  const isDateOnly = /^\d{4}-\d{2}-\d{2}$/.test(dateString)
+  const hasExplicitTimeZone = /Z$|[+-]\d{2}:\d{2}$/.test(dateString)
+  const useUtc = isDateOnly || hasExplicitTimeZone
+
+  const date = isDateOnly
+    ? (() => {
+        const [year, month, day] = dateString.split('-').map(Number)
+        return new Date(Date.UTC(year, month - 1, day))
+      })()
+    : new Date(dateString)
+
+  if (Number.isNaN(date.getTime())) return 'Invalid Date'
+
   return date.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
+    ...(useUtc ? { timeZone: 'UTC' } : {}),
   })
 }
 

@@ -22,6 +22,8 @@ const buildApp = async () => {
   // Register plugins
   await fastify.register(cors, {
     origin: true, // For development, allow all origins
+    methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   });
 
   await fastify.register(prismaPlugin);

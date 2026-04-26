@@ -8,25 +8,27 @@ import Modal from '@/components/Modal'
 import ApplicationDetail from '@/components/ApplicationDetail'
 import QuickAddModal from '@/components/QuickAddModal'
 import { formatCurrency, formatDate, formatStatus } from '@/utils/format'
+import { useLanguage } from '@/app/LanguageProvider'
 
 const Applications: React.FC = () => {
   const { data: applications = [], isLoading, error } = useApplications()
+  const { t } = useLanguage()
   const [selectedApp, setSelectedApp] = useState<Application | null>(null)
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
 
   const columns: Column<Application>[] = [
     {
-      header: 'Company',
+      header: t('company'),
       accessor: 'company',
       className: 'font-semibold',
     },
     {
-      header: 'Position',
+      header: t('position'),
       accessor: 'position',
     },
     {
-      header: 'Status',
+      header: t('status'),
       accessor: (item) => (
         <span className={`status-badge status-${item.status}`}>
           {formatStatus(item.status)}
@@ -34,11 +36,11 @@ const Applications: React.FC = () => {
       ),
     },
     {
-      header: 'Applied Date',
+      header: t('applied_date'),
       accessor: (item) => formatDate(item.appliedDate),
     },
     {
-      header: 'Salary',
+      header: t('salary'),
       accessor: (item) => (item.salary ? formatCurrency(item.salary) : 'N/A'),
     },
   ]
@@ -67,14 +69,14 @@ const Applications: React.FC = () => {
           marginBottom: '2rem',
         }}
       >
-        <h1 className="text-3xl font-bold">Applications</h1>
+        <h1 className="text-3xl font-bold">{t('applications')}</h1>
         <button
           className="btn-primary"
           style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
           onClick={() => setIsAddModalOpen(true)}
         >
           <Plus size={20} />
-          Add Application
+          {t('add_application')}
         </button>
       </div>
 

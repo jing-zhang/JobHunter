@@ -85,7 +85,7 @@ describe('CircularProgress', () => {
   })
 
   it('should handle different progress values', () => {
-    const { rerender, container } = render(<CircularProgress progress={25} />)
+    const { rerender } = render(<CircularProgress progress={25} />)
 
     expect(screen.getByText('25%')).toBeInTheDocument()
 

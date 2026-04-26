@@ -1,49 +1,75 @@
 import React, { useState } from 'react'
-import { useOffers } from '@/hooks/api'
+import { useDeleteOffer, useOffers } from '@/hooks/api'
 import DataTable from '@/components/DataTable'
 import type { Column } from '@/components/DataTable'
 import type { Offer } from '@/api/endpoints'
-import { Search, Filter, Plus, TrendingUp } from 'lucide-react'
+import { Search, Filter, Plus, TrendingUp, Trash2 } from 'lucide-react'
 import QuickAddModal from '@/components/QuickAddModal'
 import { formatCurrency, formatDate } from '@/utils/format'
+import { useLanguage } from '@/app/LanguageProvider'
 
 const Offers: React.FC = () => {
   const { data: offers = [], isLoading, error } = useOffers()
+  const deleteOffer = useDeleteOffer()
+  const { t } = useLanguage()
   const [searchTerm, setSearchTerm] = useState('')
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
 
   const columns: Column<Offer>[] = [
     {
-      header: 'Company',
+      header: t('company'),
       accessor: 'company',
       className: 'font-semibold',
     },
     {
-      header: 'Position',
+      header: t('position'),
       accessor: 'position',
     },
     {
-      header: 'Base Salary',
+      header: t('base_salary'),
       accessor: (item) => formatCurrency(item.salary),
     },
     {
-      header: 'Bonus',
+      header: t('bonus'),
       accessor: (item) => (item.bonus ? formatCurrency(item.bonus) : '—'),
     },
     {
-      header: 'Equity',
+      header: t('equity'),
       accessor: (item) => item.equity || '—',
     },
     {
-      header: 'Expiration',
+      header: t('expiration'),
       accessor: (item) => formatDate(item.expirationDate),
     },
     {
-      header: 'Status',
+      header: t('status'),
       accessor: (item) => (
         <span className={`status-badge status-${item.status}`}>
           {item.status}
         </span>
+      ),
+    },
+    {
+      header: '',
+      accessor: (item) => (
+        <button
+          type="button"
+          className="btn-danger"
+          style={{ padding: '0.4rem 0.6rem' }}
+          title="Delete offer"
+          onClick={async () => {
+            const ok = window.confirm('Delete this offer?')
+            if (!ok) return
+            try {
+              await deleteOffer.mutateAsync(item.id)
+            } catch (err) {
+              console.error(err)
+            }
+          }}
+          disabled={deleteOffer.isPending}
+        >
+          <Trash2 size={16} />
+        </button>
       ),
     },
   ]
@@ -72,7 +98,7 @@ const Offers: React.FC = () => {
           marginBottom: '2rem',
         }}
       >
-        <h1 className="text-3xl font-bold">Job Offers</h1>
+        <h1 className="text-3xl font-bold">{t('job_offers')}</h1>
         <div style={{ display: 'flex', gap: '1rem' }}>
           <button
             className="glass"
@@ -87,7 +113,7 @@ const Offers: React.FC = () => {
             onClick={() => setIsAddModalOpen(true)}
           >
             <Plus size={20} />
-            Add Offer
+            {t('add_offer')}
           </button>
         </div>
       </div>
@@ -150,7 +176,11 @@ const Offers: React.FC = () => {
         isLoading={isLoading}
       />
 
-      <QuickAddModal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} />
+      <QuickAddModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        initialTab="offer"
+      />
     </div>
   )
 }

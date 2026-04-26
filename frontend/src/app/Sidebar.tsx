@@ -1,13 +1,15 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { LayoutDashboard, FileText, Calendar, DollarSign, Briefcase } from 'lucide-react'
+import { useLanguage } from '@/app/LanguageProvider'
 
 const Sidebar: React.FC = () => {
+  const { t } = useLanguage()
   const navItems = [
-    { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
-    { to: '/applications', icon: FileText, label: 'Applications' },
-    { to: '/interviews', icon: Calendar, label: 'Interviews' },
-    { to: '/offers', icon: DollarSign, label: 'Offers' },
+    { to: '/', icon: LayoutDashboard, label: t('dashboard') },
+    { to: '/applications', icon: FileText, label: t('applications') },
+    { to: '/interviews', icon: Calendar, label: t('interviews') },
+    { to: '/offers', icon: DollarSign, label: t('offers') },
   ]
 
   return (

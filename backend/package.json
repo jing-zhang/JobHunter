@@ -10,6 +10,8 @@
     "test": "node ../node_modules/vitest/vitest.mjs run -c vitest.config.ts",
     "test:watch": "node ../node_modules/vitest/vitest.mjs -c vitest.config.ts",
     "test:coverage": "node ../node_modules/vitest/vitest.mjs run -c vitest.config.ts --coverage",
+    "seed": "tsx src/scripts/seed.ts",
+    "postinstall": "prisma generate",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev"
   },

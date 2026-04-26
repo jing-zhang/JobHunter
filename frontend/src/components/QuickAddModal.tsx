@@ -1,18 +1,19 @@
 import React, { useState } from 'react'
 import { Plus } from 'lucide-react'
 import { useCreateApplication, useCreateInterview, useCreateOffer, useApplications } from '@/hooks/api'
-import type { Application, Interview, Offer } from '@/api/endpoints'
+import type { Application, Interview } from '@/api/endpoints'
 import Modal from './Modal'
 
 interface QuickAddModalProps {
   isOpen: boolean
   onClose: () => void
+  initialTab?: TabType
 }
 
 type TabType = 'application' | 'interview' | 'offer'
 
-const QuickAddModal: React.FC<QuickAddModalProps> = ({ isOpen, onClose }) => {
-  const [activeTab, setActiveTab] = useState<TabType>('application')
+const QuickAddModal: React.FC<QuickAddModalProps> = ({ isOpen, onClose, initialTab = 'application' }) => {
+  const [activeTab, setActiveTab] = useState<TabType>(initialTab)
   const { data: applications = [] } = useApplications()
 
   // Hooks
@@ -53,13 +54,17 @@ const QuickAddModal: React.FC<QuickAddModalProps> = ({ isOpen, onClose }) => {
     notes: '',
   })
 
-  const handleAppSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    const data = {
+  React.useEffect(() => {
+    if (isOpen) setActiveTab(initialTab)
+  }, [initialTab, isOpen])
+
+const handleAppSubmit = async (e: React.FormEvent) => {
+  e.preventDefault()
+  const data = {
       ...appData,
       salary: parseInt(appData.salary) || 0,
-      appliedDate: new Date().toISOString().split('T')[0],
-      lastUpdated: new Date().toISOString().split('T')[0],
+      appliedDate: new Date().toISOString().slice(0, 10),
+      lastUpdated: new Date().toISOString().slice(0, 10),
     }
     try {
       await createApplication.mutateAsync(data)
@@ -99,7 +104,7 @@ const QuickAddModal: React.FC<QuickAddModalProps> = ({ isOpen, onClose }) => {
       bonus: parseInt(offerData.bonus) || 0,
       benefits: [],
       status: 'pending' as const,
-      receivedDate: new Date().toISOString().split('T')[0],
+      receivedDate: new Date().toISOString().slice(0, 10),
     }
     try {
       await createOffer.mutateAsync(data)
@@ -186,6 +191,28 @@ const QuickAddModal: React.FC<QuickAddModalProps> = ({ isOpen, onClose }) => {
             <div className="form-group">
               <label className="form-label">Date & Time *</label>
               <input type="datetime-local" required value={interviewData.scheduledDate} onChange={e => setInterviewData({...interviewData, scheduledDate: e.target.value})} className="form-input" />
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label className="form-label">Interviewer</label>
+              <input
+                type="text"
+                value={interviewData.interviewer}
+                onChange={e => setInterviewData({ ...interviewData, interviewer: e.target.value })}
+                className="form-input"
+                placeholder="e.g. Jane Smith"
+              />
+            </div>
+            <div className="form-group">
+              <label className="form-label">Location</label>
+              <input
+                type="text"
+                value={interviewData.location}
+                onChange={e => setInterviewData({ ...interviewData, location: e.target.value })}
+                className="form-input"
+                placeholder="e.g. Zoom / Onsite"
+              />
             </div>
           </div>
           <div className="modal-footer" style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>

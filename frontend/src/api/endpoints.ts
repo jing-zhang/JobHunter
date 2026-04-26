@@ -70,7 +70,10 @@ export const api = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     })
-    if (!response.ok) throw new Error('Failed to create application')
+    if (!response.ok) {
+      const details = await response.text().catch(() => '')
+      throw new Error(`Failed to create application (${response.status}): ${details}`)
+    }
     return response.json()
   },
 
@@ -80,7 +83,10 @@ export const api = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     })
-    if (!response.ok) throw new Error('Failed to update application')
+    if (!response.ok) {
+      const details = await response.text().catch(() => '')
+      throw new Error(`Failed to update application (${response.status}): ${details}`)
+    }
     return response.json()
   },
 
@@ -88,7 +94,10 @@ export const api = {
     const response = await fetch(`${API_BASE_URL}/applications/${id}`, {
       method: 'DELETE',
     })
-    if (!response.ok) throw new Error('Failed to delete application')
+    if (!response.ok) {
+      const details = await response.text().catch(() => '')
+      throw new Error(`Failed to delete application (${response.status}): ${details}`)
+    }
   },
 
   // Interviews
@@ -106,6 +115,29 @@ export const api = {
     })
     if (!response.ok) throw new Error('Failed to create interview')
     return response.json()
+  },
+
+  updateInterview: async (id: number, data: Partial<Interview>): Promise<Interview> => {
+    const response = await fetch(`${API_BASE_URL}/interviews/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    })
+    if (!response.ok) {
+      const details = await response.text().catch(() => '')
+      throw new Error(`Failed to update interview (${response.status}): ${details}`)
+    }
+    return response.json()
+  },
+
+  deleteInterview: async (id: number): Promise<void> => {
+    const response = await fetch(`${API_BASE_URL}/interviews/${id}`, {
+      method: 'DELETE',
+    })
+    if (!response.ok) {
+      const details = await response.text().catch(() => '')
+      throw new Error(`Failed to delete interview (${response.status}): ${details}`)
+    }
   },
 
   // Offers
@@ -133,6 +165,16 @@ export const api = {
     })
     if (!response.ok) throw new Error('Failed to update offer')
     return response.json()
+  },
+
+  deleteOffer: async (id: number): Promise<void> => {
+    const response = await fetch(`${API_BASE_URL}/offers/${id}`, {
+      method: 'DELETE',
+    })
+    if (!response.ok) {
+      const details = await response.text().catch(() => '')
+      throw new Error(`Failed to delete offer (${response.status}): ${details}`)
+    }
   },
 
   // Dashboard

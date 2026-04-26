@@ -3,6 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Interviews from '@/pages/Interviews'
 import type { Interview } from '@/api/endpoints'
+import { LanguageProvider } from '@/app/LanguageProvider'
 
 const mockInterviews: Interview[] = [
   {
@@ -33,10 +34,14 @@ const mockInterviews: Interview[] = [
 
 const mockUseInterviews = vi.fn()
 const mockUseApplications = vi.fn()
+const mockUseDeleteInterview = vi.fn()
+const mockUseUpdateInterview = vi.fn()
 
 vi.mock('@/hooks/api', () => ({
   useInterviews: () => mockUseInterviews(),
   useApplications: () => mockUseApplications(),
+  useDeleteInterview: () => mockUseDeleteInterview(),
+  useUpdateInterview: () => mockUseUpdateInterview(),
   useCreateApplication: vi.fn(),
   useCreateInterview: vi.fn(),
   useCreateOffer: vi.fn(),
@@ -48,12 +53,24 @@ const wrapper = ({ children }: { children: React.ReactNode }) => {
       queries: { retry: false },
     },
   })
-  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  return (
+    <QueryClientProvider client={queryClient}>
+      <LanguageProvider>{children}</LanguageProvider>
+    </QueryClientProvider>
+  )
 }
 
 describe('Interviews Page', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    mockUseDeleteInterview.mockReturnValue({
+      mutateAsync: vi.fn(),
+      isPending: false,
+    })
+    mockUseUpdateInterview.mockReturnValue({
+      mutateAsync: vi.fn(),
+      isPending: false,
+    })
   })
 
   it('renders interviews list correctly', () => {

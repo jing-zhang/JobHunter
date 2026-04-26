@@ -1,49 +1,79 @@
 import React, { useState } from 'react'
-import { useInterviews } from '@/hooks/api'
+import { useDeleteInterview, useInterviews } from '@/hooks/api'
 import DataTable from '@/components/DataTable'
 import type { Column } from '@/components/DataTable'
 import type { Interview } from '@/api/endpoints'
-import { Search, Filter, Plus, Calendar } from 'lucide-react'
+import { Search, Filter, Plus, Calendar, Trash2 } from 'lucide-react'
 import QuickAddModal from '@/components/QuickAddModal'
-import { formatDate, formatStatus } from '@/utils/format'
+import { formatStatus } from '@/utils/format'
+import Modal from '@/components/Modal'
+import InterviewDetail from '@/components/InterviewDetail'
+import { useLanguage } from '@/app/LanguageProvider'
 
 const Interviews: React.FC = () => {
   const { data: interviews = [], isLoading, error } = useInterviews()
+  const deleteInterview = useDeleteInterview()
+  const { t } = useLanguage()
   const [searchTerm, setSearchTerm] = useState('')
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
+  const [selectedInterview, setSelectedInterview] = useState<Interview | null>(null)
 
   const columns: Column<Interview>[] = [
     {
-      header: 'Company',
+      header: t('company'),
       accessor: 'company',
       className: 'font-semibold',
     },
     {
-      header: 'Position',
+      header: t('position'),
       accessor: 'position',
     },
     {
-      header: 'Type',
+      header: t('type'),
       accessor: (item) => formatStatus(item.type),
       className: 'text-capitalize',
     },
     {
-      header: 'Date & Time',
+      header: t('date_time'),
       accessor: (item) => new Date(item.scheduledDate).toLocaleString([], {
         dateStyle: 'medium',
         timeStyle: 'short',
       }),
     },
     {
-      header: 'Interviewer',
+      header: t('interviewer'),
       accessor: 'interviewer',
     },
     {
-      header: 'Status',
+      header: t('status'),
       accessor: (item) => (
         <span className={`status-badge status-${item.status}`}>
           {item.status}
         </span>
+      ),
+    },
+    {
+      header: '',
+      accessor: (item) => (
+        <button
+          type="button"
+          className="btn-danger"
+          style={{ padding: '0.4rem 0.6rem' }}
+          title="Delete interview"
+          onClick={async (e) => {
+            e.stopPropagation()
+            const ok = window.confirm('Delete this interview?')
+            if (!ok) return
+            try {
+              await deleteInterview.mutateAsync(item.id)
+            } catch (err) {
+              console.error(err)
+            }
+          }}
+          disabled={deleteInterview.isPending}
+        >
+          <Trash2 size={16} />
+        </button>
       ),
     },
   ]
@@ -74,7 +104,7 @@ const Interviews: React.FC = () => {
           marginBottom: '2rem',
         }}
       >
-        <h1 className="text-3xl font-bold">Interviews</h1>
+        <h1 className="text-3xl font-bold">{t('interviews')}</h1>
         <div style={{ display: 'flex', gap: '1rem' }}>
           <button
             className="glass"
@@ -89,7 +119,7 @@ const Interviews: React.FC = () => {
             onClick={() => setIsAddModalOpen(true)}
           >
             <Plus size={20} />
-            Add Interview
+            {t('add_interview')}
           </button>
         </div>
       </div>
@@ -150,9 +180,24 @@ const Interviews: React.FC = () => {
         columns={columns}
         data={filteredInterviews}
         isLoading={isLoading}
+        onRowClick={(row) => setSelectedInterview(row)}
       />
 
-      <QuickAddModal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} />
+      <QuickAddModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        initialTab="interview"
+      />
+
+      <Modal
+        isOpen={!!selectedInterview}
+        onClose={() => setSelectedInterview(null)}
+        title="Interview Details"
+      >
+        {selectedInterview && (
+          <InterviewDetail interview={selectedInterview} onClose={() => setSelectedInterview(null)} />
+        )}
+      </Modal>
     </div>
   )
 }

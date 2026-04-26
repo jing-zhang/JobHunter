@@ -3,6 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Offers from '@/pages/Offers'
 import type { Offer } from '@/api/endpoints'
+import { LanguageProvider } from '@/app/LanguageProvider'
 
 const mockOffers: Offer[] = [
   {
@@ -37,10 +38,12 @@ const mockOffers: Offer[] = [
 
 const mockUseOffers = vi.fn()
 const mockUseApplications = vi.fn()
+const mockUseDeleteOffer = vi.fn()
 
 vi.mock('@/hooks/api', () => ({
   useOffers: () => mockUseOffers(),
   useApplications: () => mockUseApplications(),
+  useDeleteOffer: () => mockUseDeleteOffer(),
   useCreateApplication: vi.fn(),
   useCreateInterview: vi.fn(),
   useCreateOffer: vi.fn(),
@@ -52,12 +55,20 @@ const wrapper = ({ children }: { children: React.ReactNode }) => {
       queries: { retry: false },
     },
   })
-  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  return (
+    <QueryClientProvider client={queryClient}>
+      <LanguageProvider>{children}</LanguageProvider>
+    </QueryClientProvider>
+  )
 }
 
 describe('Offers Page', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    mockUseDeleteOffer.mockReturnValue({
+      mutateAsync: vi.fn(),
+      isPending: false,
+    })
   })
 
   it('renders offers list correctly', () => {

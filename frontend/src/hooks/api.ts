@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from '@/api/endpoints'
-import type { Application, Offer } from '@/api/endpoints'
+import type { Application, Interview, Offer } from '@/api/endpoints'
 
 // Applications hooks
 export const useApplications = () => {
@@ -70,6 +70,33 @@ export const useCreateInterview = () => {
     mutationFn: api.createInterview,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['interviews'] })
+      queryClient.invalidateQueries({ queryKey: ['applications'] })
+      queryClient.invalidateQueries({ queryKey: ['dashboard'] })
+    },
+  })
+}
+
+export const useDeleteInterview = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: api.deleteInterview,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['interviews'] })
+      queryClient.invalidateQueries({ queryKey: ['applications'] })
+      queryClient.invalidateQueries({ queryKey: ['dashboard'] })
+    },
+  })
+}
+
+export const useUpdateInterview = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: ({ id, data }: { id: number; data: Partial<Interview> }) => api.updateInterview(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['interviews'] })
+      queryClient.invalidateQueries({ queryKey: ['applications'] })
       queryClient.invalidateQueries({ queryKey: ['dashboard'] })
     },
   })
@@ -90,6 +117,7 @@ export const useCreateOffer = () => {
     mutationFn: api.createOffer,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['offers'] })
+      queryClient.invalidateQueries({ queryKey: ['applications'] })
       queryClient.invalidateQueries({ queryKey: ['dashboard'] })
     },
   })
@@ -102,6 +130,19 @@ export const useUpdateOffer = () => {
     mutationFn: ({ id, data }: { id: number; data: Partial<Offer> }) => api.updateOffer(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['offers'] })
+      queryClient.invalidateQueries({ queryKey: ['dashboard'] })
+    },
+  })
+}
+
+export const useDeleteOffer = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: api.deleteOffer,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['offers'] })
+      queryClient.invalidateQueries({ queryKey: ['applications'] })
       queryClient.invalidateQueries({ queryKey: ['dashboard'] })
     },
   })

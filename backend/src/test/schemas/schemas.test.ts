@@ -14,11 +14,11 @@ describe('zod schemas', () => {
     expect(parsed.url).toBe('')
   })
 
-  it('requires scheduledDate to be an ISO datetime string', () => {
+  it('rejects invalid scheduledDate', () => {
     const res = CreateInterviewSchema.safeParse({
       applicationId: 1,
       type: 'technical',
-      scheduledDate: '2024-01-01',
+      scheduledDate: 'not-a-date',
     })
 
     expect(res.success).toBe(false)
@@ -33,4 +33,3 @@ describe('zod schemas', () => {
     expect(res.success).toBe(false)
   })
 })
-

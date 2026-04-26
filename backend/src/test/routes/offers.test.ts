@@ -70,9 +70,17 @@ describe('offers routes', () => {
 
   it('DELETE /:id returns 404 when prisma reports missing record', async () => {
     const prisma = {
-      offer: {
-        delete: vi.fn().mockRejectedValue({ code: 'P2025' }),
-      },
+      $transaction: vi.fn(async (fn: any) => {
+        return fn({
+          offer: {
+            delete: vi.fn().mockRejectedValue({ code: 'P2025' }),
+          },
+          application: {
+            findUnique: vi.fn(),
+            update: vi.fn(),
+          },
+        })
+      }),
     }
 
     const app = createTestApp(prisma)
@@ -87,4 +95,3 @@ describe('offers routes', () => {
     await app.close()
   })
 })
-

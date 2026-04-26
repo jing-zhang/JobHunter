@@ -45,9 +45,7 @@ const Layout: React.FC = () => {
           <NavLink
             key={item.to}
             to={item.to}
-            className={({ isActive }) =>
-              `flex flex-col items-center gap-1 p-2 rounded-lg transition-colors`
-            }
+            className="flex flex-col items-center gap-1 p-2 rounded-lg transition-colors"
             style={({ isActive }) => ({
               color: isActive ? 'var(--color-primary)' : 'var(--color-text-secondary)'
             })}

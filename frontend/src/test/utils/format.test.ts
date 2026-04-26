@@ -14,6 +14,10 @@ describe('Format Utilities', () => {
       expect(formatDate('2026-05-10')).toBe('May 10, 2026')
     })
 
+    it('formats ISO datetime strings correctly', () => {
+      expect(formatDate('2026-05-10T00:00:00.000Z')).toBe('May 10, 2026')
+    })
+
     it('handles empty or invalid dates', () => {
       expect(formatDate('')).toBe('N/A')
       expect(formatDate('invalid')).toBe('Invalid Date')

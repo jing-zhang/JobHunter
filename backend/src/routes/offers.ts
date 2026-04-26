@@ -33,16 +33,30 @@ export default async function offerRoutes(fastify: FastifyInstance) {
     }
 
     try {
-      const offer = await fastify.prisma.offer.create({
-        data: {
-          ...parseResult.data,
-          receivedDate: parseResult.data.receivedDate ? new Date(parseResult.data.receivedDate) : new Date(),
-          expirationDate: parseResult.data.expirationDate ? new Date(parseResult.data.expirationDate) : null,
-        },
-      });
+      const benefits =
+        Array.isArray(parseResult.data.benefits) ? JSON.stringify(parseResult.data.benefits) : parseResult.data.benefits;
+      const [, offer] = await fastify.prisma.$transaction([
+        fastify.prisma.application.update({
+          where: { id: parseResult.data.applicationId },
+          data: {
+            status: "offer",
+          },
+        }),
+        fastify.prisma.offer.create({
+          data: {
+            ...parseResult.data,
+            benefits,
+            receivedDate: parseResult.data.receivedDate ? new Date(parseResult.data.receivedDate) : new Date(),
+            expirationDate: parseResult.data.expirationDate ? new Date(parseResult.data.expirationDate) : null,
+          },
+        }),
+      ]);
       return reply.status(201).send(offer);
     } catch (error) {
       fastify.log.error(error);
+      if ((error as any).code === "P2025") {
+        return reply.status(404).send({ error: "Application not found" });
+      }
       return reply.status(500).send({ error: "Internal Server Error" });
     }
   });
@@ -57,10 +71,17 @@ export default async function offerRoutes(fastify: FastifyInstance) {
     }
 
     try {
+      const benefits =
+        parseResult.data.benefits === undefined
+          ? undefined
+          : Array.isArray(parseResult.data.benefits)
+            ? JSON.stringify(parseResult.data.benefits)
+            : parseResult.data.benefits;
       const offer = await fastify.prisma.offer.update({
         where: { id: parseInt(id) },
         data: {
           ...parseResult.data,
+          benefits,
           receivedDate: parseResult.data.receivedDate ? new Date(parseResult.data.receivedDate) : undefined,
           expirationDate: parseResult.data.expirationDate ? new Date(parseResult.data.expirationDate) : undefined,
         },
@@ -79,8 +100,34 @@ export default async function offerRoutes(fastify: FastifyInstance) {
   fastify.delete("/:id", async (request, reply) => {
     const { id } = request.params as { id: string };
     try {
-      await fastify.prisma.offer.delete({
-        where: { id: parseInt(id) },
+      const offerId = parseInt(id);
+      await fastify.prisma.$transaction(async (tx) => {
+        const deletedOffer = await tx.offer.delete({
+          where: { id: offerId },
+          select: { applicationId: true },
+        });
+
+        const counts = await tx.application.findUnique({
+          where: { id: deletedOffer.applicationId },
+          select: {
+            _count: {
+              select: { interviews: true, offers: true },
+            },
+          },
+        });
+
+        // Application may already be deleted (or cascading didn't run).
+        if (!counts) return;
+
+        const interviewsCount = counts?._count.interviews ?? 0;
+        const offersCount = counts?._count.offers ?? 0;
+
+        const nextStatus = offersCount > 0 ? "offer" : interviewsCount > 0 ? "interviewing" : "applied";
+
+        await tx.application.update({
+          where: { id: deletedOffer.applicationId },
+          data: { status: nextStatus },
+        });
       });
       return reply.status(204).send();
     } catch (error) {
