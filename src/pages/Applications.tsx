@@ -107,10 +107,10 @@ const Applications: React.FC = () => {
             style={{
               width: '100%',
               padding: '0.75rem 1rem 0.75rem 2.5rem',
-              background: 'rgba(0,0,0,0.2)',
-              border: '1px solid rgba(255,255,255,0.1)',
+              background: 'var(--glass-bg)',
+              border: 'var(--glass-border)',
               borderRadius: 'var(--radius)',
-              color: 'white',
+              color: 'var(--color-text-primary)',
               outline: 'none',
             }}
           />

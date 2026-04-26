@@ -19,8 +19,8 @@ const Dashboard: React.FC = () => {
   if (error) {
     return (
       <div className="glass-card p-6">
-        <p className="text-red-600 dark:text-red-400">
-          Failed to load dashboard data. Please try again later.
+        <p style={{ color: 'var(--color-danger)' }}>
+          Error loading dashboard: {error.message}
         </p>
       </div>
     )
@@ -29,7 +29,7 @@ const Dashboard: React.FC = () => {
   if (!stats) {
     return (
       <div className="glass-card p-6">
-        <p className="text-gray-600 dark:text-gray-400">No dashboard data available.</p>
+        <p>No dashboard data available.</p>
       </div>
     )
   }
@@ -37,7 +37,7 @@ const Dashboard: React.FC = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Dashboard</h1>
+        <h1 className="text-2xl font-bold">Dashboard</h1>
       </div>
 
       {/* Stats Grid */}
@@ -48,10 +48,10 @@ const Dashboard: React.FC = () => {
         <div className="glass-card p-6">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
+              <h3 className="text-sm font-medium mb-1">
                 Job Hunt Progress
               </h3>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">
+              <p className="text-2xl font-bold">
                 {stats.progressPct}%
               </p>
             </div>
@@ -62,31 +62,31 @@ const Dashboard: React.FC = () => {
 
       {/* Progress Section */}
       <div className="glass-card p-6">
-        <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+        <h2 className="text-lg font-semibold mb-4">
           Overall Progress
         </h2>
         <div className="flex items-center space-x-6">
           <CircularProgress progress={stats.progressPct} size={120} strokeWidth={8} />
           <div className="flex-1">
-            <p className="text-gray-600 dark:text-gray-400 mb-2">
+            <p className="mb-2">
               You're making great progress on your job hunt! Keep up the momentum.
             </p>
             <div className="space-y-1">
               <div className="flex justify-between text-sm">
-                <span className="text-gray-600 dark:text-gray-400">Applications</span>
-                <span className="font-medium text-gray-900 dark:text-white">
+                <span>Applications</span>
+                <span className="font-medium">
                   {stats.activeApplications} active
                 </span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-gray-600 dark:text-gray-400">Interviews</span>
-                <span className="font-medium text-gray-900 dark:text-white">
+                <span>Interviews</span>
+                <span className="font-medium">
                   {stats.upcomingInterviews} upcoming
                 </span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-gray-600 dark:text-gray-400">Offers</span>
-                <span className="font-medium text-gray-900 dark:text-white">
+                <span>Offers</span>
+                <span className="font-medium">
                   {stats.pendingOffers} pending
                 </span>
               </div>

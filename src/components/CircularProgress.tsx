@@ -29,7 +29,7 @@ const CircularProgress: React.FC<CircularProgressProps> = ({
           stroke="currentColor"
           strokeWidth={strokeWidth}
           fill="none"
-          className="text-gray-200 dark:text-gray-700"
+          style={{ stroke: 'rgba(128, 128, 128, 0.2)' }}
         />
         {/* Progress circle */}
         <circle
@@ -42,11 +42,12 @@ const CircularProgress: React.FC<CircularProgressProps> = ({
           strokeDasharray={strokeDasharray}
           strokeDashoffset={strokeDashoffset}
           strokeLinecap="round"
-          className="text-blue-600 dark:text-blue-400 transition-all duration-300 ease-in-out"
+          className="transition-all duration-300 ease-in-out"
+          style={{ stroke: 'var(--color-primary)' }}
         />
       </svg>
       <div className="absolute inset-0 flex items-center justify-center">
-        <span className="text-lg font-semibold text-gray-900 dark:text-white">{progress}%</span>
+        <span className="text-lg font-semibold">{progress}%</span>
       </div>
     </div>
   )

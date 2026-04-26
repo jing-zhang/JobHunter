@@ -48,12 +48,17 @@ const Interviews: React.FC = () => {
     },
   ]
 
-  const filteredInterviews = interviews.filter(
-    (interview) =>
-      interview.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      interview.position.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      interview.interviewer.toLowerCase().includes(searchTerm.toLowerCase()),
-  )
+  const filteredInterviews = interviews.filter((interview: any) => {
+    const company = interview.company || interview.application?.company || ''
+    const position = interview.position || interview.application?.position || ''
+    const interviewer = interview.interviewer || ''
+    
+    return (
+      company.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      position.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      interviewer.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  })
 
   if (error) {
     return <div className="glass-card">Error loading interviews: {error.message}</div>
@@ -118,10 +123,10 @@ const Interviews: React.FC = () => {
             style={{
               width: '100%',
               padding: '0.75rem 1rem 0.75rem 2.5rem',
-              background: 'rgba(0,0,0,0.2)',
-              border: '1px solid rgba(255,255,255,0.1)',
+              background: 'var(--glass-bg)',
+              border: 'var(--glass-border)',
               borderRadius: 'var(--radius)',
-              color: 'white',
+              color: 'var(--color-text-primary)',
               outline: 'none',
             }}
           />

@@ -74,7 +74,7 @@ describe('Dashboard', () => {
 
     render(<Dashboard />, { wrapper })
 
-    expect(screen.getByText(/Failed to load dashboard data/i)).toBeInTheDocument()
+    expect(screen.getByText(/Error loading dashboard/i)).toBeInTheDocument()
   })
 
   it('should show no data message when stats is null', () => {

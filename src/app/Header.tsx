@@ -7,10 +7,12 @@ const Header: React.FC = () => {
 
   return (
     <header
-      className="glass flex justify-between items-center px-4 md:px-6 z-40 relative"
+      className="glass flex justify-between items-center px-4 md:px-6 z-40 relative md:ml-[280px]"
       style={{
         height: '70px',
-        margin: '1rem',
+        marginTop: '1rem',
+        marginRight: '1rem',
+        marginBottom: '1rem',
         borderRadius: 'var(--radius)',
       }}
     >
