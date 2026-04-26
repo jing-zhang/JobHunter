@@ -16,7 +16,9 @@
       "Bash(npm install *)",
       "Bash(npx kill-port *)",
       "Bash(npx vite *)",
-      "Bash(curl -s http://localhost:5173/src/styles/global.css)"
+      "Bash(curl -s http://localhost:5173/src/styles/global.css)",
+      "Bash(git push *)",
+      "Bash(npx prettier *)"
     ]
   }
 }
