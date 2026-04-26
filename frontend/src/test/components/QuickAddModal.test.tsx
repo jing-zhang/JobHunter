@@ -26,28 +26,19 @@ describe('QuickAddModal', () => {
   })
 
   it('should not render when isOpen is false', () => {
-    render(
-      <QuickAddModal isOpen={false} onClose={vi.fn()} />,
-      { wrapper }
-    )
+    render(<QuickAddModal isOpen={false} onClose={vi.fn()} />, { wrapper })
 
     expect(screen.queryByText(/Quick Add Application/i)).not.toBeInTheDocument()
   })
 
   it('should render when isOpen is true', () => {
-    render(
-      <QuickAddModal isOpen={true} onClose={vi.fn()} />,
-      { wrapper }
-    )
+    render(<QuickAddModal isOpen={true} onClose={vi.fn()} />, { wrapper })
 
     expect(screen.getByText(/Quick Add Application/i)).toBeInTheDocument()
   })
 
   it('should have all required form fields', () => {
-    render(
-      <QuickAddModal isOpen={true} onClose={vi.fn()} />,
-      { wrapper }
-    )
+    render(<QuickAddModal isOpen={true} onClose={vi.fn()} />, { wrapper })
 
     expect(screen.getByText('Company *')).toBeInTheDocument()
     expect(screen.getByText('Position *')).toBeInTheDocument()
@@ -61,10 +52,7 @@ describe('QuickAddModal', () => {
   it('should close modal when close button is clicked', async () => {
     const user = userEvent.setup()
     const onClose = vi.fn()
-    render(
-      <QuickAddModal isOpen={true} onClose={onClose} />,
-      { wrapper }
-    )
+    render(<QuickAddModal isOpen={true} onClose={onClose} />, { wrapper })
 
     const closeButton = screen.getByRole('button', { name: 'Close modal' })
     if (closeButton) {
@@ -76,10 +64,7 @@ describe('QuickAddModal', () => {
   it('should close modal when cancel button is clicked', async () => {
     const user = userEvent.setup()
     const onClose = vi.fn()
-    render(
-      <QuickAddModal isOpen={true} onClose={onClose} />,
-      { wrapper }
-    )
+    render(<QuickAddModal isOpen={true} onClose={onClose} />, { wrapper })
 
     const cancelButton = screen.getByRole('button', { name: /Cancel/i })
     await user.click(cancelButton)
@@ -88,10 +73,7 @@ describe('QuickAddModal', () => {
 
   it('should update form fields when user types', async () => {
     const user = userEvent.setup()
-    render(
-      <QuickAddModal isOpen={true} onClose={vi.fn()} />,
-      { wrapper }
-    )
+    render(<QuickAddModal isOpen={true} onClose={vi.fn()} />, { wrapper })
 
     const companyInput = screen.getByPlaceholderText('e.g. Google') as HTMLInputElement
     await user.type(companyInput, 'Tech Corp')
@@ -101,10 +83,7 @@ describe('QuickAddModal', () => {
 
   it('should update all form fields', async () => {
     const user = userEvent.setup()
-    render(
-      <QuickAddModal isOpen={true} onClose={vi.fn()} />,
-      { wrapper }
-    )
+    render(<QuickAddModal isOpen={true} onClose={vi.fn()} />, { wrapper })
 
     const companyInput = screen.getByPlaceholderText('e.g. Google') as HTMLInputElement
     const positionInput = screen.getByPlaceholderText('e.g. Frontend Engineer') as HTMLInputElement
@@ -126,10 +105,7 @@ describe('QuickAddModal', () => {
   })
 
   it('should have status dropdown with correct options', () => {
-    render(
-      <QuickAddModal isOpen={true} onClose={vi.fn()} />,
-      { wrapper }
-    )
+    render(<QuickAddModal isOpen={true} onClose={vi.fn()} />, { wrapper })
 
     const statusSelect = screen.getByDisplayValue('Applied') as HTMLSelectElement
     expect(statusSelect).toBeInTheDocument()
@@ -144,10 +120,7 @@ describe('QuickAddModal', () => {
 
   it('should change status when dropdown is changed', async () => {
     const user = userEvent.setup()
-    render(
-      <QuickAddModal isOpen={true} onClose={vi.fn()} />,
-      { wrapper }
-    )
+    render(<QuickAddModal isOpen={true} onClose={vi.fn()} />, { wrapper })
 
     const statusSelect = screen.getByDisplayValue('Applied') as HTMLSelectElement
     await user.selectOptions(statusSelect, 'interviewing')
@@ -156,74 +129,57 @@ describe('QuickAddModal', () => {
   })
 
   it('should require company field', () => {
-    render(
-      <QuickAddModal isOpen={true} onClose={vi.fn()} />,
-      { wrapper }
-    )
+    render(<QuickAddModal isOpen={true} onClose={vi.fn()} />, { wrapper })
 
     const companyInput = screen.getByPlaceholderText('e.g. Google') as HTMLInputElement
     expect(companyInput.required).toBe(true)
   })
 
   it('should require position field', () => {
-    render(
-      <QuickAddModal isOpen={true} onClose={vi.fn()} />,
-      { wrapper }
-    )
+    render(<QuickAddModal isOpen={true} onClose={vi.fn()} />, { wrapper })
 
     const positionInput = screen.getByPlaceholderText('e.g. Frontend Engineer') as HTMLInputElement
     expect(positionInput.required).toBe(true)
   })
 
   it('should have textarea for notes', () => {
-    render(
-      <QuickAddModal isOpen={true} onClose={vi.fn()} />,
-      { wrapper }
-    )
+    render(<QuickAddModal isOpen={true} onClose={vi.fn()} />, { wrapper })
 
-    const notesTextarea = screen.getByPlaceholderText('Add any specific details about the job or company...') as HTMLTextAreaElement
+    const notesTextarea = screen.getByPlaceholderText(
+      'Add any specific details about the job or company...',
+    ) as HTMLTextAreaElement
     expect(notesTextarea).toBeInTheDocument()
     expect(notesTextarea.tagName).toBe('TEXTAREA')
   })
 
   it('should update notes textarea', async () => {
     const user = userEvent.setup()
-    render(
-      <QuickAddModal isOpen={true} onClose={vi.fn()} />,
-      { wrapper }
-    )
+    render(<QuickAddModal isOpen={true} onClose={vi.fn()} />, { wrapper })
 
-    const notesTextarea = screen.getByPlaceholderText('Add any specific details about the job or company...') as HTMLTextAreaElement
+    const notesTextarea = screen.getByPlaceholderText(
+      'Add any specific details about the job or company...',
+    ) as HTMLTextAreaElement
     await user.type(notesTextarea, 'Interesting company with good culture')
 
     expect(notesTextarea.value).toBe('Interesting company with good culture')
   })
 
   it('should have add application button', () => {
-    render(
-      <QuickAddModal isOpen={true} onClose={vi.fn()} />,
-      { wrapper }
-    )
+    render(<QuickAddModal isOpen={true} onClose={vi.fn()} />, { wrapper })
 
     const submitButton = screen.getByRole('button', { name: /Add Application/i })
     expect(submitButton).toBeInTheDocument()
   })
 
   it('should have modal overlay with correct styling', () => {
-    const { container } = render(
-      <QuickAddModal isOpen={true} onClose={vi.fn()} />,
-      { wrapper }
-    )
+    const { container } = render(<QuickAddModal isOpen={true} onClose={vi.fn()} />, { wrapper })
 
     const overlay = container.querySelector('.modal-overlay')
     expect(overlay).toBeInTheDocument()
   })
 
   it('should have glass-card styling on modal content', () => {
-    const { container } = render(
-      <QuickAddModal isOpen={true} onClose={vi.fn()} />,
-      { wrapper }
-    )
+    const { container } = render(<QuickAddModal isOpen={true} onClose={vi.fn()} />, { wrapper })
 
     const card = container.querySelector('.modal-content')
     expect(card).toBeInTheDocument()

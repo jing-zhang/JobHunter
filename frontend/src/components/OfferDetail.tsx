@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import type { Offer } from '@/api/endpoints'
 import { useUpdateOffer, useDeleteOffer } from '@/hooks/api'
 import { Trash2, Save } from 'lucide-react'
@@ -15,10 +15,6 @@ const OfferDetail: React.FC<OfferDetailProps> = ({ offer, onClose, onDeleted }) 
   const [formData, setFormData] = useState<Offer>(offer)
   const updateMutation = useUpdateOffer()
   const deleteMutation = useDeleteOffer()
-
-  useEffect(() => {
-    setFormData(offer)
-  }, [offer])
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
@@ -162,7 +158,12 @@ const OfferDetail: React.FC<OfferDetailProps> = ({ offer, onClose, onDeleted }) 
 
       <div
         className="modal-footer"
-        style={{ borderTop: 'none', padding: 0, marginTop: '2rem', justifyContent: 'space-between' }}
+        style={{
+          borderTop: 'none',
+          padding: 0,
+          marginTop: '2rem',
+          justifyContent: 'space-between',
+        }}
       >
         <button type="button" onClick={handleDelete} className="btn-danger">
           <Trash2 size={18} style={{ marginRight: '0.5rem', verticalAlign: 'middle' }} />

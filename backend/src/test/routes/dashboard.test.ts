@@ -86,4 +86,3 @@ describe('dashboard routes', () => {
     await app.close()
   })
 })
-

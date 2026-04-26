@@ -27,7 +27,13 @@ const Header: React.FC = () => {
         <Search
           size={18}
           color="var(--color-text-secondary)"
-          style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', flexShrink: 0 }}
+          style={{
+            position: 'absolute',
+            left: '12px',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            flexShrink: 0,
+          }}
         />
         <input
           type="text"

@@ -93,7 +93,8 @@ export const useUpdateInterview = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ id, data }: { id: number; data: Partial<Interview> }) => api.updateInterview(id, data),
+    mutationFn: ({ id, data }: { id: number; data: Partial<Interview> }) =>
+      api.updateInterview(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['interviews'] })
       queryClient.invalidateQueries({ queryKey: ['applications'] })

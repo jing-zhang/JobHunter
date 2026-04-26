@@ -7,7 +7,7 @@ describe('Modal', () => {
     render(
       <Modal isOpen={true} onClose={vi.fn()} title="Test Modal">
         <div>Modal Content</div>
-      </Modal>
+      </Modal>,
     )
     expect(screen.getByText('Test Modal')).toBeInTheDocument()
     expect(screen.getByText('Modal Content')).toBeInTheDocument()
@@ -17,7 +17,7 @@ describe('Modal', () => {
     render(
       <Modal isOpen={false} onClose={vi.fn()} title="Test Modal">
         <div>Modal Content</div>
-      </Modal>
+      </Modal>,
     )
     expect(screen.queryByText('Test Modal')).not.toBeInTheDocument()
     expect(screen.queryByText('Modal Content')).not.toBeInTheDocument()
@@ -28,9 +28,9 @@ describe('Modal', () => {
     render(
       <Modal isOpen={true} onClose={onClose} title="Test Modal">
         <div>Modal Content</div>
-      </Modal>
+      </Modal>,
     )
-    
+
     // The close button has an X icon from lucide-react
     const closeButton = screen.getByRole('button')
     fireEvent.click(closeButton)
@@ -42,9 +42,9 @@ describe('Modal', () => {
     const { container } = render(
       <Modal isOpen={true} onClose={onClose} title="Test Modal">
         <div>Modal Content</div>
-      </Modal>
+      </Modal>,
     )
-    
+
     const overlay = container.querySelector('.modal-overlay')
     if (overlay) {
       fireEvent.click(overlay)

@@ -21,7 +21,7 @@ export const formatDate = (dateString: string): string => {
   const date = isDateOnly
     ? (() => {
         const [year, month, day] = dateString.split('-').map(Number)
-        return new Date(Date.UTC(year, month - 1, day))
+        return new Date(Date.UTC(year!, month! - 1, day!))
       })()
     : new Date(dateString)
 
@@ -40,7 +40,5 @@ export const formatDate = (dateString: string): string => {
  */
 export const formatStatus = (status: string): string => {
   if (!status) return ''
-  return status
-    .replace(/_/g, ' ')
-    .replace(/\b\w/g, (l) => l.toUpperCase())
+  return status.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())
 }

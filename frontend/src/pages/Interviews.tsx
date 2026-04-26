@@ -35,10 +35,11 @@ const Interviews: React.FC = () => {
     },
     {
       header: t('date_time'),
-      accessor: (item) => new Date(item.scheduledDate).toLocaleString([], {
-        dateStyle: 'medium',
-        timeStyle: 'short',
-      }),
+      accessor: (item) =>
+        new Date(item.scheduledDate).toLocaleString([], {
+          dateStyle: 'medium',
+          timeStyle: 'short',
+        }),
     },
     {
       header: t('interviewer'),
@@ -47,9 +48,7 @@ const Interviews: React.FC = () => {
     {
       header: t('status'),
       accessor: (item) => (
-        <span className={`status-badge status-${item.status}`}>
-          {item.status}
-        </span>
+        <span className={`status-badge status-${item.status}`}>{item.status}</span>
       ),
     },
     {
@@ -82,11 +81,11 @@ const Interviews: React.FC = () => {
     },
   ]
 
-  const filteredInterviews = interviews.filter((interview: any) => {
-    const company = interview.company || interview.application?.company || ''
-    const position = interview.position || interview.application?.position || ''
+  const filteredInterviews = interviews.filter((interview) => {
+    const company = interview.company || ''
+    const position = interview.position || ''
     const interviewer = interview.interviewer || ''
-    
+
     return (
       company.toLowerCase().includes(searchTerm.toLowerCase()) ||
       position.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -192,7 +191,11 @@ const Interviews: React.FC = () => {
         title={t('interview_details')}
       >
         {selectedInterview && (
-          <InterviewDetail interview={selectedInterview} onClose={() => setSelectedInterview(null)} />
+          <InterviewDetail
+            key={selectedInterview.id}
+            interview={selectedInterview}
+            onClose={() => setSelectedInterview(null)}
+          />
         )}
       </Modal>
     </div>

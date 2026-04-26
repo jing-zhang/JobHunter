@@ -15,10 +15,7 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, icon: Icon, className
           <h3 className="text-sm font-medium mb-1">{title}</h3>
           <p className="text-2xl font-bold">{value}</p>
         </div>
-        <div 
-          className="p-3 rounded-full" 
-          style={{ backgroundColor: 'rgba(14, 165, 233, 0.15)' }}
-        >
+        <div className="p-3 rounded-full" style={{ backgroundColor: 'rgba(14, 165, 233, 0.15)' }}>
           <Icon className="w-6 h-6" style={{ color: 'var(--color-primary)' }} />
         </div>
       </div>

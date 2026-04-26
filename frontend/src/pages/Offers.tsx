@@ -47,9 +47,7 @@ const Offers: React.FC = () => {
     {
       header: t('status'),
       accessor: (item) => (
-        <span className={`status-badge status-${item.status}`}>
-          {item.status}
-        </span>
+        <span className={`status-badge status-${item.status}`}>{item.status}</span>
       ),
     },
     {
@@ -82,10 +80,10 @@ const Offers: React.FC = () => {
     },
   ]
 
-  const filteredOffers = offers.filter((offer: any) => {
-    const company = offer.company || offer.application?.company || ''
-    const position = offer.position || offer.application?.position || ''
-    
+  const filteredOffers = offers.filter((offer) => {
+    const company = offer.company || ''
+    const position = offer.position || ''
+
     return (
       company.toLowerCase().includes(searchTerm.toLowerCase()) ||
       position.toLowerCase().includes(searchTerm.toLowerCase())
@@ -184,8 +182,9 @@ const Offers: React.FC = () => {
         title={t('offer_details')}
       >
         {selectedOffer && (
-          <OfferDetail 
-            offer={selectedOffer} 
+          <OfferDetail
+            key={selectedOffer.id}
+            offer={selectedOffer}
             onClose={() => setSelectedOffer(null)}
             onDeleted={() => setSelectedOffer(null)}
           />

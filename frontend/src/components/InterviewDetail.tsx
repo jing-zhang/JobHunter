@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import type { Interview } from '@/api/endpoints'
 import { useUpdateInterview } from '@/hooks/api'
 import { Save } from 'lucide-react'
@@ -27,28 +27,21 @@ const InterviewDetail: React.FC<InterviewDetailProps> = ({ interview, onClose })
   const { t } = useLanguage()
   const updateInterview = useUpdateInterview()
 
-  const [scheduledDateLocal, setScheduledDateLocal] = useState('')
+  const [scheduledDateLocal, setScheduledDateLocal] = useState(
+    toDatetimeLocal(interview.scheduledDate),
+  )
   const [type, setType] = useState<Interview['type']>(interview.type)
   const [status, setStatus] = useState<Interview['status']>(interview.status)
   const [interviewer, setInterviewer] = useState(interview.interviewer)
   const [location, setLocation] = useState(interview.location)
   const [notes, setNotes] = useState(interview.notes)
 
-  const initialLocal = useMemo(() => toDatetimeLocal(interview.scheduledDate), [interview.scheduledDate])
-
-  useEffect(() => {
-    setScheduledDateLocal(initialLocal)
-    setType(interview.type)
-    setStatus(interview.status)
-    setInterviewer(interview.interviewer)
-    setLocation(interview.location)
-    setNotes(interview.notes)
-  }, [initialLocal, interview])
-
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
-      const scheduledDate = scheduledDateLocal ? new Date(scheduledDateLocal).toISOString() : interview.scheduledDate
+      const scheduledDate = scheduledDateLocal
+        ? new Date(scheduledDateLocal).toISOString()
+        : interview.scheduledDate
       await updateInterview.mutateAsync({
         id: interview.id,
         data: {
@@ -163,4 +156,3 @@ const InterviewDetail: React.FC<InterviewDetailProps> = ({ interview, onClose })
 }
 
 export default InterviewDetail
-

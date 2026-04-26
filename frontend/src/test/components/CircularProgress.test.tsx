@@ -43,9 +43,7 @@ describe('CircularProgress', () => {
   })
 
   it('should apply custom className', () => {
-    const { container } = render(
-      <CircularProgress progress={50} className="custom-class" />
-    )
+    const { container } = render(<CircularProgress progress={50} className="custom-class" />)
 
     const wrapper = container.querySelector('.relative')
     expect(wrapper).toBeInTheDocument()
@@ -60,9 +58,7 @@ describe('CircularProgress', () => {
   })
 
   it('should render with custom stroke width', () => {
-    const { container } = render(
-      <CircularProgress progress={50} strokeWidth={10} />
-    )
+    const { container } = render(<CircularProgress progress={50} strokeWidth={10} />)
 
     const circles = container.querySelectorAll('circle')
     expect(circles[0]).toHaveAttribute('stroke-width', '10')

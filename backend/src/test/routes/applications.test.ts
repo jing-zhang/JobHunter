@@ -96,4 +96,3 @@ describe('applications routes', () => {
     await app.close()
   })
 })
-

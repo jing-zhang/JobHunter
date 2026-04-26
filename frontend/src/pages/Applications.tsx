@@ -31,9 +31,7 @@ const Applications: React.FC = () => {
     {
       header: t('status'),
       accessor: (item) => (
-        <span className={`status-badge status-${item.status}`}>
-          {formatStatus(item.status)}
-        </span>
+        <span className={`status-badge status-${item.status}`}>{formatStatus(item.status)}</span>
       ),
     },
     {
@@ -176,6 +174,7 @@ const Applications: React.FC = () => {
       >
         {selectedApp && (
           <ApplicationDetail
+            key={selectedApp.id}
             application={selectedApp}
             onClose={() => setSelectedApp(null)}
             onDeleted={() => setSelectedApp(null)}

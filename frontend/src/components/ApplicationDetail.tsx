@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import type { Application } from '@/api/endpoints'
 import { useUpdateApplication, useDeleteApplication } from '@/hooks/api'
 import { Trash2, Save, ExternalLink } from 'lucide-react'
@@ -10,15 +10,15 @@ interface ApplicationDetailProps {
   onDeleted?: () => void
 }
 
-const ApplicationDetail: React.FC<ApplicationDetailProps> = ({ application, onClose, onDeleted }) => {
+const ApplicationDetail: React.FC<ApplicationDetailProps> = ({
+  application,
+  onClose,
+  onDeleted,
+}) => {
   const { t } = useLanguage()
   const [formData, setFormData] = useState<Application>(application)
   const updateMutation = useUpdateApplication()
   const deleteMutation = useDeleteApplication()
-
-  useEffect(() => {
-    setFormData(application)
-  }, [application])
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
@@ -159,7 +159,12 @@ const ApplicationDetail: React.FC<ApplicationDetailProps> = ({ application, onCl
 
       <div
         className="modal-footer"
-        style={{ borderTop: 'none', padding: 0, marginTop: '2rem', justifyContent: 'space-between' }}
+        style={{
+          borderTop: 'none',
+          padding: 0,
+          marginTop: '2rem',
+          justifyContent: 'space-between',
+        }}
       >
         <button type="button" onClick={handleDelete} className="btn-danger">
           <Trash2 size={18} style={{ marginRight: '0.5rem', verticalAlign: 'middle' }} />

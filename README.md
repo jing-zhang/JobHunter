@@ -50,21 +50,45 @@ npm install
 npm -w backend run prisma:migrate
 ```
 
+Optionally seed with sample data:
+```bash
+npm -w backend run seed
+```
+
 ### Running the application
 
-You'll need two terminal windows to run both the frontend and backend servers simultaneously.
+Start both frontend and backend concurrently:
+
+```bash
+npm run dev
+```
+
+This starts:
+- **Frontend** on `http://localhost:5173`
+- **Backend API** on `http://localhost:5174`
+
+Or run them separately in two terminals:
 
 **Terminal 1: Backend**
 ```bash
 npm run dev:backend
 ```
-*The backend API starts on `http://localhost:3001`.*
 
 **Terminal 2: Frontend**
 ```bash
-npm run dev
+npm run dev:frontend
 ```
-*The frontend starts on `http://localhost:5173`.*
+
+### Production build
+
+```bash
+# Build both frontend and backend
+npm run build
+npm run build:backend
+
+# Preview frontend build
+npm run preview
+```
 
 ### Project layout
 

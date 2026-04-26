@@ -1,31 +1,30 @@
-import fs from "fs";
-import path from "path";
-import { PrismaClient } from "@prisma/client";
-import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
-import Database from "better-sqlite3";
+import fs from 'fs'
+import path from 'path'
+import { PrismaClient } from '@prisma/client'
+import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
 
 // Determine absolute paths
-const DB_JSON_PATH = path.resolve(process.cwd(), "../db.json");
-const SQLITE_PATH = path.resolve(process.cwd(), "dev.db");
+const DB_JSON_PATH = path.resolve(process.cwd(), '../db.json')
+const SQLITE_PATH = path.resolve(process.cwd(), 'dev.db')
 
-console.log(`Reading data from: ${DB_JSON_PATH}`);
-console.log(`Writing data to: ${SQLITE_PATH}`);
+console.log(`Reading data from: ${DB_JSON_PATH}`)
+console.log(`Writing data to: ${SQLITE_PATH}`)
 
 // Initialize Prisma with the Better-SQLite3 adapter
-const url = "file:./dev.db";
-const adapter = new PrismaBetterSqlite3({ url }) as any;
-const prisma = new PrismaClient({ adapter });
+const url = 'file:./dev.db'
+const adapter = new PrismaBetterSqlite3({ url })
+const prisma = new PrismaClient({ adapter })
 
 async function main() {
   // Read and parse db.json
-  const rawData = fs.readFileSync(DB_JSON_PATH, "utf-8");
-  const data = JSON.parse(rawData);
+  const rawData = fs.readFileSync(DB_JSON_PATH, 'utf-8')
+  const data = JSON.parse(rawData)
 
-  console.log("Starting migration...");
+  console.log('Starting migration...')
 
   // 1. Migrate Applications
   if (data.applications && data.applications.length > 0) {
-    console.log(`Migrating ${data.applications.length} applications...`);
+    console.log(`Migrating ${data.applications.length} applications...`)
     for (const app of data.applications) {
       await prisma.application.upsert({
         where: { id: app.id },
@@ -42,13 +41,13 @@ async function main() {
           notes: app.notes,
           url: app.url,
         },
-      });
+      })
     }
   }
 
   // 2. Migrate Interviews
   if (data.interviews && data.interviews.length > 0) {
-    console.log(`Migrating ${data.interviews.length} interviews...`);
+    console.log(`Migrating ${data.interviews.length} interviews...`)
     for (const interview of data.interviews) {
       await prisma.interview.upsert({
         where: { id: interview.id },
@@ -63,13 +62,13 @@ async function main() {
           interviewer: interview.interviewer,
           location: interview.location,
         },
-      });
+      })
     }
   }
 
   // 3. Migrate Offers
   if (data.offers && data.offers.length > 0) {
-    console.log(`Migrating ${data.offers.length} offers...`);
+    console.log(`Migrating ${data.offers.length} offers...`)
     for (const offer of data.offers) {
       await prisma.offer.upsert({
         where: { id: offer.id },
@@ -86,18 +85,18 @@ async function main() {
           expirationDate: offer.expirationDate ? new Date(offer.expirationDate) : null,
           notes: offer.notes,
         },
-      });
+      })
     }
   }
 
-  console.log("Migration completed successfully.");
+  console.log('Migration completed successfully.')
 }
 
 main()
   .catch((e) => {
-    console.error("Migration failed:", e);
-    process.exit(1);
+    console.error('Migration failed:', e)
+    process.exit(1)
   })
   .finally(async () => {
-    await prisma.$disconnect();
-  });
+    await prisma.$disconnect()
+  })

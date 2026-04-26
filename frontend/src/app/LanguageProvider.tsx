@@ -100,13 +100,19 @@ const translations: Translations = {
   delete: { en: 'Delete', zh: '删除' },
 
   // Confirm dialogs
-  confirm_delete_application: { en: 'Are you sure you want to delete this application?', zh: '确定要删除这条投递记录吗？' },
+  confirm_delete_application: {
+    en: 'Are you sure you want to delete this application?',
+    zh: '确定要删除这条投递记录吗？',
+  },
   confirm_delete_interview: { en: 'Delete this interview?', zh: '删除此面试？' },
   confirm_delete_offer: { en: 'Delete this offer?', zh: '删除此 Offer？' },
 
   // Search placeholders
   search_placeholder_app: { en: 'Search companies, positions...', zh: '搜索公司、岗位…' },
-  search_placeholder_int: { en: 'Search companies, positions, interviewers...', zh: '搜索公司、岗位、面试官…' },
+  search_placeholder_int: {
+    en: 'Search companies, positions, interviewers...',
+    zh: '搜索公司、岗位、面试官…',
+  },
   search_placeholder_offer: { en: 'Search companies, positions...', zh: '搜索公司、岗位…' },
 
   // Toolbar buttons
@@ -125,7 +131,10 @@ const translations: Translations = {
   placeholder_location: { en: 'e.g. Remote', zh: '例如 远程' },
   placeholder_salary: { en: 'e.g. 120000', zh: '例如 120000' },
   placeholder_url: { en: 'https://company.com/jobs/123', zh: 'https://company.com/jobs/123' },
-  placeholder_notes: { en: 'Add any specific details about the job or company...', zh: '添加关于职位或公司的详细信息…' },
+  placeholder_notes: {
+    en: 'Add any specific details about the job or company...',
+    zh: '添加关于职位或公司的详细信息…',
+  },
   placeholder_interviewer: { en: 'e.g. Jane Smith', zh: '例如 面试官姓名' },
   placeholder_interview_location: { en: 'e.g. Zoom / Onsite', zh: '例如 Zoom / 现场' },
   placeholder_bonus: { en: 'e.g. 20000', zh: '例如 20000' },
@@ -159,7 +168,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       language,
       setLanguage,
       toggleLanguage,
-      t: (key) => translations[key][language],
+      t: (key) => translations[key]![language],
     }
   }, [language])
 

@@ -5,7 +5,7 @@ import { useApplications, useCreateApplication } from '@/hooks/api'
 
 // Mock fetch globally
 const fetchMock = vi.fn()
-;(globalThis as any).fetch = fetchMock
+vi.stubGlobal('fetch', fetchMock)
 
 describe('API Hooks', () => {
   let queryClient: QueryClient

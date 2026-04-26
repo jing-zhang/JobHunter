@@ -36,7 +36,7 @@ describe('DataTable', () => {
   it('calls onRowClick when a row is clicked', () => {
     const onRowClick = vi.fn()
     render(<DataTable columns={columns} data={data} onRowClick={onRowClick} />)
-    
+
     fireEvent.click(screen.getByText('Google'))
     expect(onRowClick).toHaveBeenCalledWith(data[0])
   })

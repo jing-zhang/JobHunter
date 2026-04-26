@@ -21,9 +21,7 @@ const Dashboard: React.FC = () => {
   if (error) {
     return (
       <div className="glass-card p-6">
-        <p style={{ color: 'var(--color-danger)' }}>
-          Error loading dashboard: {error.message}
-        </p>
+        <p style={{ color: 'var(--color-danger)' }}>Error loading dashboard: {error.message}</p>
       </div>
     )
   }
@@ -44,18 +42,22 @@ const Dashboard: React.FC = () => {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard title={t('active_applications')} value={stats.activeApplications} icon={Briefcase} />
-        <StatCard title={t('upcoming_interviews')} value={stats.upcomingInterviews} icon={Calendar} />
+        <StatCard
+          title={t('active_applications')}
+          value={stats.activeApplications}
+          icon={Briefcase}
+        />
+        <StatCard
+          title={t('upcoming_interviews')}
+          value={stats.upcomingInterviews}
+          icon={Calendar}
+        />
         <StatCard title={t('pending_offers')} value={stats.pendingOffers} icon={Trophy} />
         <div className="glass-card p-6">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-sm font-medium mb-1">
-                {t('job_hunt_progress')}
-              </h3>
-              <p className="text-2xl font-bold">
-                {stats.progressPct}%
-              </p>
+              <h3 className="text-sm font-medium mb-1">{t('job_hunt_progress')}</h3>
+              <p className="text-2xl font-bold">{stats.progressPct}%</p>
             </div>
             <CircularProgress progress={stats.progressPct} size={60} strokeWidth={6} />
           </div>
@@ -64,15 +66,11 @@ const Dashboard: React.FC = () => {
 
       {/* Progress Section */}
       <div className="glass-card p-6">
-        <h2 className="text-lg font-semibold mb-4">
-          {t('overall_progress')}
-        </h2>
+        <h2 className="text-lg font-semibold mb-4">{t('overall_progress')}</h2>
         <div className="flex items-center space-x-6">
           <CircularProgress progress={stats.progressPct} size={120} strokeWidth={8} />
           <div className="flex-1">
-            <p className="mb-2">
-              {t('progress_blurb')}
-            </p>
+            <p className="mb-2">{t('progress_blurb')}</p>
             <div className="space-y-1">
               <div className="flex justify-between text-sm">
                 <span>{t('applications')}</span>
@@ -104,4 +102,3 @@ const Dashboard: React.FC = () => {
 }
 
 export default Dashboard
-
