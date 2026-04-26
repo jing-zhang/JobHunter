@@ -18,7 +18,9 @@
       "Bash(npx vite *)",
       "Bash(curl -s http://localhost:5173/src/styles/global.css)",
       "Bash(git push *)",
-      "Bash(npx prettier *)"
+      "Bash(npx prettier *)",
+      "Bash(chmod +x backend/docker-entrypoint.sh)",
+      "Bash(docker-compose build *)"
     ]
   }
 }
