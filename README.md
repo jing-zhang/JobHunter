@@ -1,26 +1,26 @@
-# JobHunter 🚀
+# JobHunter
 
 A modern, responsive, and fully-featured application for tracking your job hunt progress. Built with a React + Vite frontend and a Fastify + Prisma + SQLite backend.
 
-## 🌟 Features
+## Features
 
 - **Dashboard**: Get a birds-eye view of your job hunt progress with beautiful circular progress indicators and real-time statistics.
 - **Applications Tracking**: Keep track of every job you've applied to, with details like position, company, salary, and status.
 - **Interviews Management**: Schedule and track upcoming interviews, separating them from past ones.
 - **Offer Comparison**: Compare job offers with detailed metrics like equity, bonus, and benefits.
-- **Responsive Design**: fully usable on both desktop and mobile devices.
+- **Responsive Design**: Fully usable on both desktop and mobile devices.
 - **Dark/Light Mode**: First-class support for theming using a custom ThemeProvider.
 - **Accessibility**: ARIA labels and semantic HTML for screen reader compatibility.
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 ### Frontend
-- **Framework**: React 18
+- **Framework**: React 19
 - **Build Tool**: Vite
 - **Language**: TypeScript
-- **Styling**: Tailwind CSS + Custom CSS Variables (Glassmorphism)
-- **State Management**: React Query (Server State), Context API (Theme State)
-- **Routing**: React Router DOM v6
+- **Styling**: Tailwind CSS + custom CSS variables (glassmorphism)
+- **State Management**: React Query (server state) + Context API (theme state)
+- **Routing**: React Router DOM v7
 - **Icons**: Lucide React
 - **Testing**: Vitest + React Testing Library
 
@@ -32,7 +32,7 @@ A modern, responsive, and fully-featured application for tracking your job hunt 
 - **Validation**: Zod
 - **Logging**: Pino
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Node.js (v18+)
@@ -40,64 +40,48 @@ A modern, responsive, and fully-featured application for tracking your job hunt 
 
 ### Installation
 
-1. **Clone the repository** (if applicable) and navigate to the root directory:
-   ```bash
-   cd JobHunter
-   ```
+```bash
+npm install
+```
 
-2. **Install frontend dependencies**:
-   ```bash
-   npm install
-   ```
+### Initialize the database
 
-3. **Install backend dependencies**:
-   ```bash
-   cd backend
-   npm install
-   ```
+```bash
+npm -w backend run prisma:migrate
+```
 
-4. **Initialize the database**:
-   ```bash
-   npx prisma migrate dev
-   ```
-
-### Running the Application
+### Running the application
 
 You'll need two terminal windows to run both the frontend and backend servers simultaneously.
 
-**Terminal 1: Backend Server**
+**Terminal 1: Backend**
 ```bash
-cd backend
+npm run dev:backend
+```
+*The backend API starts on `http://localhost:3001`.*
+
+**Terminal 2: Frontend**
+```bash
 npm run dev
 ```
-*The backend API will start on `http://localhost:3001`.*
+*The frontend starts on `http://localhost:5173`.*
 
-**Terminal 2: Frontend App**
-```bash
-# From the project root
-npm run dev
-```
-*The React app will start on `http://localhost:5173`.*
+## Testing
 
-## 🧪 Testing
-
-The project maintains a high test coverage for critical UI components and custom hooks.
-
-To run the test suite:
 ```bash
 npm run test
 ```
 
-To run tests with coverage reporting:
+Coverage:
 ```bash
-npm run coverage
+npm run test:coverage
 ```
 
-## 🏗️ Architecture
+Backend tests:
+```bash
+npm run test:backend
+```
 
-- **Glassmorphism UI**: Uses CSS backdrop-filters mixed with Tailwind classes to create a beautiful frosted-glass effect across cards and overlays.
-- **React Query Hooks**: Data fetching is abstracted into custom hooks (`useApplications`, `useInterviews`, etc.) ensuring components remain clean and focused on rendering.
-- **Relational Backend**: The Prisma schema tightly couples Applications to Interviews and Offers, allowing complex queries (like Dashboard stats) to be resolved efficiently.
+## License
 
-## 📜 License
 MIT
