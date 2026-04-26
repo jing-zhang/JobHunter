@@ -84,3 +84,32 @@ select.form-input option {
   background: rgba(239, 68, 68, 0.2);
   border-color: var(--color-danger);
 }
+
+/* Tabs */
+.modal-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+}
+
+.modal-tab {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  background: transparent;
+  transition: all 0.2s;
+}
+
+.modal-tab:hover {
+  color: var(--color-text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.modal-tab.active {
+  color: var(--color-primary);
+  background: rgba(14, 165, 233, 0.1);
+}

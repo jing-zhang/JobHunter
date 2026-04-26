@@ -159,20 +159,20 @@
       {
         "id": "M7-1",
         "task": "Implement Interview List/Table",
-        "status": "todo"
+        "status": "done"
       },
       {
         "id": "M7-2",
         "task": "Implement Offer Comparison table",
-        "status": "todo"
+        "status": "done"
       },
       {
         "id": "M7-3",
         "task": "Create unit tests for UI components",
-        "status": "todo"
+        "status": "done"
       }
     ],
-    "status": "todo"
+    "status": "done"
   },
   {
     "id": "M8",

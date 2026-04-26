@@ -11,11 +11,17 @@
 | **M4: Mock API** | ✅ Complete | json-server setup, React-Query client, API services, and unit tests implemented. |
 | **M5: Dashboard** | ✅ Complete | Core dashboard components and unit tests. |
 | **M6: Applications** | ✅ Complete | List view with DataTable, Detail view, CRUD operations, and unit tests. |
-| **M7: Interviews/Offers**| ⏳ Pending | Secondary views. |
+| **M7: Interviews/Offers**| ✅ Complete | Secondary views. |
 | **M8: Testing/CI** | ⏳ Pending | Test suite and CI pipeline. |
 | **M9: Polish & Docs** | ⏳ Pending | Final touches. |
 
 ## Recent Activity
+- **M7 Complete**:
+  - **Interviews Page**: Implemented a comprehensive interview tracking list with search, filtering, and status-coded badges.
+  - **Offers Page**: Created an offer management and comparison table with salary/bonus formatting and expiration tracking.
+  - **Unified QuickAdd**: Refactored `QuickAddModal` into a tabbed interface, allowing users to seamlessly add Applications, Interviews, or Offers from a single entry point.
+  - **Styles & Consistency**: Added new status color tokens to `DataTable.css` and implemented tab styling in `forms.css`.
+  - **Testing**: Added full unit test suites for both `Interviews` and `Offers` pages, ensuring data fetching and UI logic are robust.
 - **M6 Complete**: 
   - **Generic Components**: Implemented reusable `DataTable` and `Modal` components with full unit tests.
   - **Applications Page**: Built the main list view with search/filtering and the detailed management view (edit/delete).
@@ -30,4 +36,4 @@
 - Implemented Design System with glassmorphism CSS variables and ThemeProvider (M2).
 
 ## Next Task
-- [ ] Implement Interviews & Offers (M7).
+- [ ] Setup Vitest environment and CI pipeline (M8).
