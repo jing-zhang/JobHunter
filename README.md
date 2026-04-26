@@ -66,6 +66,11 @@ npm run dev
 ```
 *The frontend starts on `http://localhost:5173`.*
 
+### Project layout
+
+- `frontend/` — React + Vite SPA
+- `backend/` — Fastify + Prisma API
+
 ## Testing
 
 ```bash
