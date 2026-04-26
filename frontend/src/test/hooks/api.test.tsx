@@ -55,7 +55,7 @@ describe('API Hooks', () => {
       })
 
       expect(result.current.data).toEqual(mockApplications)
-      expect(fetchMock).toHaveBeenCalledWith('http://localhost:5174/api/v1/applications')
+      expect(fetchMock).toHaveBeenCalledWith('/api/v1/applications')
     })
 
     it('should handle fetch error', async () => {
@@ -101,7 +101,7 @@ describe('API Hooks', () => {
       })
 
       expect(result.current.data).toEqual(createdApplication)
-      expect(fetchMock).toHaveBeenCalledWith('http://localhost:5174/api/v1/applications', {
+      expect(fetchMock).toHaveBeenCalledWith('/api/v1/applications', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newApplication),
