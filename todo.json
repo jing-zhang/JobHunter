@@ -205,5 +205,81 @@
       }
     ],
     "status": "done"
+  },
+  {
+    "id": "M9",
+    "task": "Backend Foundation",
+    "subtasks": [
+      {
+        "id": "M9-1",
+        "task": "Initialize Fastify & TypeScript project",
+        "status": "todo"
+      },
+      {
+        "id": "M9-2",
+        "task": "Setup Prisma with SQLite provider",
+        "status": "todo"
+      },
+      {
+        "id": "M9-3",
+        "task": "Define core models (Application, Interview, Offer) in schema.prisma",
+        "status": "todo"
+      },
+      {
+        "id": "M9-4",
+        "task": "Create basic server setup with Pino logging",
+        "status": "todo"
+      }
+    ],
+    "status": "todo"
+  },
+  {
+    "id": "M10",
+    "task": "Core API Development",
+    "subtasks": [
+      {
+        "id": "M10-1",
+        "task": "Implement Application CRUD endpoints",
+        "status": "todo"
+      },
+      {
+        "id": "M10-2",
+        "task": "Implement Interview endpoints with 'Upcoming' filter",
+        "status": "todo"
+      },
+      {
+        "id": "M10-3",
+        "task": "Implement Offer endpoints",
+        "status": "todo"
+      },
+      {
+        "id": "M10-4",
+        "task": "Implement Dashboard statistics endpoint",
+        "status": "todo"
+      }
+    ],
+    "status": "todo"
+  },
+  {
+    "id": "M11",
+    "task": "Integration & Migration",
+    "subtasks": [
+      {
+        "id": "M11-1",
+        "task": "Create migration script (db.json -> SQLite)",
+        "status": "todo"
+      },
+      {
+        "id": "M11-2",
+        "task": "Update Frontend API client baseURL & types",
+        "status": "todo"
+      },
+      {
+        "id": "M11-3",
+        "task": "Configure CORS and perform end-to-end testing",
+        "status": "todo"
+      }
+    ],
+    "status": "todo"
   }
 ]

@@ -13,7 +13,10 @@
 | **M6: Applications** | ✅ Complete | List view with DataTable, Detail view, CRUD operations, and unit tests. |
 | **M7: Interviews/Offers**| ✅ Complete | Secondary views. |
 | **M8: Testing/CI** | ✅ Complete | Test suite and CI pipeline. |
-| **M9: Polish & Docs** | ⏳ Pending | Final touches. |
+| **M9: Backend Setup** | ⏳ Pending | Initialize Fastify, Prisma, and SQLite. |
+| **M10: Backend API** | ⏳ Pending | Implement CRUD endpoints and logic. |
+| **M11: Integration** | ⏳ Pending | Migration script and frontend integration. |
+| **M12: Polish & Docs** | ⏳ Pending | Final touches and documentation. |
 
 ## Recent Activity
 - **M8 Complete**:
@@ -41,4 +44,4 @@
 - Implemented Design System with glassmorphism CSS variables and ThemeProvider (M2).
 
 ## Next Task
-- [ ] Final UI/UX polish and documentation (M9).
+- [ ] Initialize Backend project with Fastify & Prisma (M9).
