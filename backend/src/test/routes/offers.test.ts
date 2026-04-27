@@ -73,7 +73,8 @@ describe('offers routes', () => {
       $transaction: vi.fn(async (fn: (tx: unknown) => unknown) => {
         return fn({
           offer: {
-            delete: vi.fn().mockRejectedValue({ code: 'P2025' }),
+            findUnique: vi.fn().mockResolvedValue(null),
+            delete: vi.fn(),
           },
           application: {
             findUnique: vi.fn(),
