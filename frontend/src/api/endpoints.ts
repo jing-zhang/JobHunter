@@ -1,3 +1,5 @@
+import { ApiError } from './errors'
+
 const API_BASE_URL = '/api/v1'
 
 // Types
@@ -54,13 +56,13 @@ export const api = {
   // Applications
   getApplications: async (): Promise<Application[]> => {
     const response = await fetch(`${API_BASE_URL}/applications`)
-    if (!response.ok) throw new Error('Failed to fetch applications')
+    if (!response.ok) throw new ApiError('Failed to fetch applications', response.status)
     return response.json()
   },
 
   getApplication: async (id: number): Promise<Application> => {
     const response = await fetch(`${API_BASE_URL}/applications/${id}`)
-    if (!response.ok) throw new Error('Failed to fetch application')
+    if (!response.ok) throw new ApiError('Failed to fetch application', response.status)
     return response.json()
   },
 
@@ -72,7 +74,7 @@ export const api = {
     })
     if (!response.ok) {
       const details = await response.text().catch(() => '')
-      throw new Error(`Failed to create application (${response.status}): ${details}`)
+      throw new ApiError(`Failed to create application: ${details}`, response.status, details)
     }
     return response.json()
   },
@@ -85,7 +87,7 @@ export const api = {
     })
     if (!response.ok) {
       const details = await response.text().catch(() => '')
-      throw new Error(`Failed to update application (${response.status}): ${details}`)
+      throw new ApiError(`Failed to update application: ${details}`, response.status, details)
     }
     return response.json()
   },
@@ -96,14 +98,14 @@ export const api = {
     })
     if (!response.ok) {
       const details = await response.text().catch(() => '')
-      throw new Error(`Failed to delete application (${response.status}): ${details}`)
+      throw new ApiError(`Failed to delete application: ${details}`, response.status, details)
     }
   },
 
   // Interviews
   getInterviews: async (): Promise<Interview[]> => {
     const response = await fetch(`${API_BASE_URL}/interviews`)
-    if (!response.ok) throw new Error('Failed to fetch interviews')
+    if (!response.ok) throw new ApiError('Failed to fetch interviews', response.status)
     return response.json()
   },
 
@@ -113,7 +115,7 @@ export const api = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     })
-    if (!response.ok) throw new Error('Failed to create interview')
+    if (!response.ok) throw new ApiError('Failed to create interview', response.status)
     return response.json()
   },
 
@@ -125,7 +127,7 @@ export const api = {
     })
     if (!response.ok) {
       const details = await response.text().catch(() => '')
-      throw new Error(`Failed to update interview (${response.status}): ${details}`)
+      throw new ApiError(`Failed to update interview: ${details}`, response.status, details)
     }
     return response.json()
   },
@@ -136,7 +138,7 @@ export const api = {
     })
     if (!response.ok) {
       const details = await response.text().catch(() => '')
-      throw new Error(`Failed to delete interview (${response.status}): ${details}`)
+      throw new ApiError(`Failed to delete interview: ${details}`, response.status, details)
     }
   },
 

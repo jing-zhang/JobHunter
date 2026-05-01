@@ -4,20 +4,44 @@ import { CreateOfferSchema, UpdateOfferSchema } from '../schemas/offer.js'
 export default async function offerRoutes(fastify: FastifyInstance) {
   // GET all offers
   fastify.get('/', async (request, reply) => {
+    const { page = '1', limit = '20' } = request.query as { page?: string; limit?: string }
+    
+    const pageNum = Math.max(1, parseInt(page) || 1)
+    const limitNum = Math.min(100, Math.max(1, parseInt(limit) || 20))
+    const skip = (pageNum - 1) * limitNum
+    
     try {
-      const offers = await fastify.prisma.offer.findMany({
-        orderBy: { receivedDate: 'desc' },
-        include: {
-          application: {
-            select: { company: true, position: true },
+      const [offers, total] = await Promise.all([
+        fastify.prisma.offer.findMany({
+          skip,
+          take: limitNum,
+          orderBy: { receivedDate: 'desc' },
+          include: {
+            application: {
+              select: { company: true, position: true },
+            },
           },
-        },
-      })
-      return offers.map((o: { application?: { company: string; position: string } }) => ({
+        }),
+        fastify.prisma.offer.count()
+      ])
+      
+      const data = offers.map((o: { application?: { company: string; position: string } }) => ({
         ...o,
         company: o.application?.company || '',
         position: o.application?.position || '',
       }))
+      
+      return {
+        data,
+        pagination: {
+          page: pageNum,
+          limit: limitNum,
+          total,
+          pages: Math.ceil(total / limitNum),
+          hasNext: pageNum * limitNum < total,
+          hasPrev: pageNum > 1
+        }
+      }
     } catch (error) {
       fastify.log.error(error)
       return reply.status(500).send({ error: 'Internal Server Error' })
@@ -71,6 +95,13 @@ export default async function offerRoutes(fastify: FastifyInstance) {
   // PATCH update offer
   fastify.patch('/:id', async (request, reply) => {
     const { id } = request.params as { id: string }
+    
+    // Validate ID is a positive integer
+    const idNum = parseInt(id)
+    if (isNaN(idNum) || idNum <= 0 || !Number.isInteger(idNum)) {
+      return reply.status(400).send({ error: 'Invalid ID format. ID must be a positive integer.' })
+    }
+    
     const parseResult = UpdateOfferSchema.safeParse(request.body)
 
     if (!parseResult.success) {
@@ -87,7 +118,7 @@ export default async function offerRoutes(fastify: FastifyInstance) {
             ? JSON.stringify(parseResult.data.benefits)
             : parseResult.data.benefits
       const offer = await fastify.prisma.offer.update({
-        where: { id: parseInt(id) },
+        where: { id: idNum },
         data: {
           ...parseResult.data,
           benefits,
@@ -112,8 +143,14 @@ export default async function offerRoutes(fastify: FastifyInstance) {
   // DELETE offer
   fastify.delete('/:id', async (request, reply) => {
     const { id } = request.params as { id: string }
+    
+    // Validate ID is a positive integer
+    const offerId = parseInt(id)
+    if (isNaN(offerId) || offerId <= 0 || !Number.isInteger(offerId)) {
+      return reply.status(400).send({ error: 'Invalid ID format. ID must be a positive integer.' })
+    }
+    
     try {
-      const offerId = parseInt(id)
       await fastify.prisma.$transaction(async (tx) => {
         // Check if offer exists first
         const offer = await tx.offer.findUnique({

@@ -7,7 +7,7 @@ const DateStringSchema = z
 
 export const CreateInterviewSchema = z.object({
   applicationId: z.number().int().positive(),
-  type: z.string().min(1, 'Interview type is required'),
+  type: z.enum(['phone_screen', 'technical', 'behavioral', 'portfolio_review', 'final']),
   // Accept `datetime-local` values like `YYYY-MM-DDTHH:mm` from the browser.
   scheduledDate: DateStringSchema,
   status: z.enum(['scheduled', 'completed', 'cancelled']).default('scheduled'),

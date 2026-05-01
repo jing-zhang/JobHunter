@@ -4,16 +4,38 @@ import { CreateApplicationSchema, UpdateApplicationSchema } from '../schemas/app
 export default async function applicationRoutes(fastify: FastifyInstance) {
   // GET all applications
   fastify.get('/', async (request, reply) => {
+    const { page = '1', limit = '20' } = request.query as { page?: string; limit?: string }
+    
+    const pageNum = Math.max(1, parseInt(page) || 1)
+    const limitNum = Math.min(100, Math.max(1, parseInt(limit) || 20))
+    const skip = (pageNum - 1) * limitNum
+    
     try {
-      const applications = await fastify.prisma.application.findMany({
-        orderBy: { lastUpdated: 'desc' },
-        include: {
-          _count: {
-            select: { interviews: true, offers: true },
+      const [applications, total] = await Promise.all([
+        fastify.prisma.application.findMany({
+          skip,
+          take: limitNum,
+          orderBy: { lastUpdated: 'desc' },
+          include: {
+            _count: {
+              select: { interviews: true, offers: true },
+            },
           },
-        },
-      })
-      return applications
+        }),
+        fastify.prisma.application.count()
+      ])
+      
+      return {
+        data: applications,
+        pagination: {
+          page: pageNum,
+          limit: limitNum,
+          total,
+          pages: Math.ceil(total / limitNum),
+          hasNext: pageNum * limitNum < total,
+          hasPrev: pageNum > 1
+        }
+      }
     } catch (error) {
       fastify.log.error(error)
       return reply.status(500).send({ error: 'Internal Server Error' })
@@ -23,9 +45,16 @@ export default async function applicationRoutes(fastify: FastifyInstance) {
   // GET single application by ID
   fastify.get('/:id', async (request, reply) => {
     const { id } = request.params as { id: string }
+    
+    // Validate ID is a positive integer
+    const idNum = parseInt(id)
+    if (isNaN(idNum) || idNum <= 0 || !Number.isInteger(idNum)) {
+      return reply.status(400).send({ error: 'Invalid ID format. ID must be a positive integer.' })
+    }
+    
     try {
       const application = await fastify.prisma.application.findUnique({
-        where: { id: parseInt(id) },
+        where: { id: idNum },
         include: {
           interviews: true,
           offers: true,
@@ -72,6 +101,13 @@ export default async function applicationRoutes(fastify: FastifyInstance) {
   // PATCH update application
   fastify.patch('/:id', async (request, reply) => {
     const { id } = request.params as { id: string }
+    
+    // Validate ID is a positive integer
+    const idNum = parseInt(id)
+    if (isNaN(idNum) || idNum <= 0 || !Number.isInteger(idNum)) {
+      return reply.status(400).send({ error: 'Invalid ID format. ID must be a positive integer.' })
+    }
+    
     const parseResult = UpdateApplicationSchema.safeParse(request.body)
 
     if (!parseResult.success) {
@@ -82,7 +118,7 @@ export default async function applicationRoutes(fastify: FastifyInstance) {
 
     try {
       const application = await fastify.prisma.application.update({
-        where: { id: parseInt(id) },
+        where: { id: idNum },
         data: {
           ...parseResult.data,
           appliedDate: parseResult.data.appliedDate
@@ -103,8 +139,14 @@ export default async function applicationRoutes(fastify: FastifyInstance) {
   // DELETE application
   fastify.delete('/:id', async (request, reply) => {
     const { id } = request.params as { id: string }
+    
+    // Validate ID is a positive integer
+    const applicationId = parseInt(id)
+    if (isNaN(applicationId) || applicationId <= 0 || !Number.isInteger(applicationId)) {
+      return reply.status(400).send({ error: 'Invalid ID format. ID must be a positive integer.' })
+    }
+    
     try {
-      const applicationId = parseInt(id)
       await fastify.prisma.$transaction(async (tx) => {
         // Ensure dependent rows are removed even if SQLite FK cascading isn't enabled.
         await tx.interview.deleteMany({ where: { applicationId } })
