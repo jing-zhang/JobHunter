@@ -16,6 +16,7 @@ describe('offers routes', () => {
             application: { company: 'Globex', position: 'Dev' },
           },
         ]),
+        count: vi.fn().mockResolvedValue(1),
       },
     }
 
@@ -26,15 +27,20 @@ describe('offers routes', () => {
     const res = await app.inject({ method: 'GET', url: '/api/v1/offers' })
 
     expect(res.statusCode).toBe(200)
-    expect(JSON.parse(res.payload)).toEqual([
+    const body = JSON.parse(res.payload)
+    expect(body.data).toEqual([
       expect.objectContaining({
         id: 1,
         company: 'Globex',
         position: 'Dev',
       }),
     ])
+    expect(body.pagination).toMatchObject({ page: 1, limit: 20, total: 1 })
+
     expect(prisma.offer.findMany).toHaveBeenCalledWith(
       expect.objectContaining({
+        skip: 0,
+        take: 20,
         orderBy: { receivedDate: 'desc' },
         include: { application: { select: { company: true, position: true } } },
       }),

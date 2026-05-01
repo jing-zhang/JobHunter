@@ -19,6 +19,7 @@ describe('interviews routes', () => {
             application: { company: 'Acme', position: 'Engineer' },
           },
         ]),
+        count: vi.fn().mockResolvedValue(1),
       },
     }
 
@@ -32,7 +33,8 @@ describe('interviews routes', () => {
     })
 
     expect(res.statusCode).toBe(200)
-    expect(JSON.parse(res.payload)).toEqual([
+    const body = JSON.parse(res.payload)
+    expect(body.data).toEqual([
       expect.objectContaining({
         id: 1,
         applicationId: 2,
@@ -40,9 +42,12 @@ describe('interviews routes', () => {
         position: 'Engineer',
       }),
     ])
+    expect(body.pagination).toMatchObject({ page: 1, limit: 20 })
 
     expect(prisma.interview.findMany).toHaveBeenCalledWith(
       expect.objectContaining({
+        skip: 0,
+        take: 20,
         where: expect.objectContaining({
           applicationId: 2,
           status: 'scheduled',
@@ -62,6 +67,10 @@ describe('interviews routes', () => {
       interview: {
         create: vi.fn(),
       },
+      application: {
+        update: vi.fn(),
+      },
+      $transaction: vi.fn(),
     }
 
     const app = createTestApp(prisma)

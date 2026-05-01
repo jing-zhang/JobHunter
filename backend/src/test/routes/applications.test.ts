@@ -7,6 +7,7 @@ describe('applications routes', () => {
     const prisma = {
       application: {
         findMany: vi.fn().mockResolvedValue([{ id: 1, company: 'Acme' }]),
+        count: vi.fn().mockResolvedValue(1),
       },
     }
 
@@ -17,9 +18,13 @@ describe('applications routes', () => {
     const res = await app.inject({ method: 'GET', url: '/api/v1/applications' })
 
     expect(res.statusCode).toBe(200)
-    expect(JSON.parse(res.payload)).toEqual([{ id: 1, company: 'Acme' }])
+    const body = JSON.parse(res.payload)
+    expect(body.data).toEqual([{ id: 1, company: 'Acme' }])
+    expect(body.pagination).toMatchObject({ page: 1, limit: 20, total: 1 })
     expect(prisma.application.findMany).toHaveBeenCalledWith(
       expect.objectContaining({
+        skip: 0,
+        take: 20,
         orderBy: { lastUpdated: 'desc' },
         include: { _count: { select: { interviews: true, offers: true } } },
       }),
