@@ -57,7 +57,9 @@ export const api = {
   getApplications: async (): Promise<Application[]> => {
     const response = await fetch(`${API_BASE_URL}/applications`)
     if (!response.ok) throw new ApiError('Failed to fetch applications', response.status)
-    return response.json()
+    const result = await response.json()
+    // Handle both paginated response (with data property) and array response
+    return Array.isArray(result) ? result : result.data || []
   },
 
   getApplication: async (id: number): Promise<Application> => {
@@ -106,7 +108,9 @@ export const api = {
   getInterviews: async (): Promise<Interview[]> => {
     const response = await fetch(`${API_BASE_URL}/interviews`)
     if (!response.ok) throw new ApiError('Failed to fetch interviews', response.status)
-    return response.json()
+    const result = await response.json()
+    // Handle both paginated response (with data property) and array response
+    return Array.isArray(result) ? result : result.data || []
   },
 
   createInterview: async (data: Omit<Interview, 'id'>): Promise<Interview> => {
@@ -145,8 +149,10 @@ export const api = {
   // Offers
   getOffers: async (): Promise<Offer[]> => {
     const response = await fetch(`${API_BASE_URL}/offers`)
-    if (!response.ok) throw new Error('Failed to fetch offers')
-    return response.json()
+    if (!response.ok) throw new ApiError('Failed to fetch offers', response.status)
+    const result = await response.json()
+    // Handle both paginated response (with data property) and array response
+    return Array.isArray(result) ? result : result.data || []
   },
 
   createOffer: async (data: Omit<Offer, 'id'>): Promise<Offer> => {
@@ -155,7 +161,7 @@ export const api = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     })
-    if (!response.ok) throw new Error('Failed to create offer')
+    if (!response.ok) throw new ApiError('Failed to create offer', response.status)
     return response.json()
   },
 
@@ -165,7 +171,7 @@ export const api = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     })
-    if (!response.ok) throw new Error('Failed to update offer')
+    if (!response.ok) throw new ApiError('Failed to update offer', response.status)
     return response.json()
   },
 
@@ -175,14 +181,14 @@ export const api = {
     })
     if (!response.ok) {
       const details = await response.text().catch(() => '')
-      throw new Error(`Failed to delete offer (${response.status}): ${details}`)
+      throw new ApiError(`Failed to delete offer: ${details}`, response.status, details)
     }
   },
 
   // Dashboard
   getDashboardStats: async (): Promise<DashboardStats> => {
     const response = await fetch(`${API_BASE_URL}/dashboard/stats`)
-    if (!response.ok) throw new Error('Failed to fetch dashboard stats')
+    if (!response.ok) throw new ApiError('Failed to fetch dashboard stats', response.status)
     const data = await response.json()
     return data.stats
   },
