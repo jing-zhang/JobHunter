@@ -148,7 +148,10 @@ export default async function applicationRoutes(fastify: FastifyInstance) {
     
     try {
       await fastify.prisma.$transaction(async (tx) => {
-        // Ensure dependent rows are removed even if SQLite FK cascading isn't enabled.
+        // Prisma enables PRAGMA foreign_keys = ON for SQLite automatically,
+        // so onDelete: Cascade in the schema handles this. The explicit
+        // deletes below are defensive — safe to remove if Prisma's FK
+        // enforcement is confirmed working.
         await tx.interview.deleteMany({ where: { applicationId } })
         await tx.offer.deleteMany({ where: { applicationId } })
         await tx.application.delete({ where: { id: applicationId } })
