@@ -17,7 +17,7 @@
 | **M10: Backend API** | ✅ Complete | Implement CRUD endpoints and logic. |
 | **M11: Integration** | ✅ Complete | Migration script and frontend integration. |
 | **M12: Polish & Docs** | ✅ Complete | Final touches and documentation. |
-| **M13: Prod Build** | ⏳ Pending | Production build and deployment guide. |
+| **M13: Prod Build** | ✅ Complete | Production build and deployment guide. |
 
 ## Recent Activity
 - **i18n & UI Polish**:
